@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useReveal } from "@/hooks/useReveal";
 
 interface WorkCardProps {
@@ -9,6 +10,7 @@ interface WorkCardProps {
   subtitle: string;
   year: string;
   delay?: number;
+  href?: string;
 }
 
 export default function WorkCard({
@@ -18,13 +20,17 @@ export default function WorkCard({
   subtitle,
   year,
   delay = 0,
+  href,
 }: WorkCardProps) {
   const { ref, visible } = useReveal();
 
+  const Wrapper = href ? Link : "div";
+
   return (
-    <div
+    <Wrapper
+      {...(href ? { href } : {})}
       ref={ref as React.RefObject<HTMLDivElement>}
-      className={`reveal work-card-hover noise-overlay relative rounded-[14px] overflow-hidden flex flex-col justify-end ${tall ? "row-span-2 min-h-[576px]" : "min-h-[280px]"} ${visible ? "visible" : ""}`}
+      className={`reveal work-card-hover noise-overlay relative rounded-[14px] overflow-hidden flex flex-col justify-end ${tall ? "row-span-2 min-h-[576px]" : "min-h-[280px]"} ${visible ? "visible" : ""}${href ? " cursor-pointer" : ""}`}
       style={{ background: gradient, transitionDelay: `${delay}s` }}
     >
       {/* Image placeholder — replace with <Image> once assets are ready */}
@@ -58,6 +64,6 @@ export default function WorkCard({
           {year}
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 }
