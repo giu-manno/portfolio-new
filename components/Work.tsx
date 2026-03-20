@@ -73,6 +73,7 @@ export default function Work() {
               subtitle={cards[2].subtitle[lang]}
               year={cards[2].year}
               delay={0.3}
+              href="/work/ades"
             />
           </div>
         </div>
