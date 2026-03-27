@@ -73,23 +73,14 @@ export default function Experience() {
                 <div className="exp-item-bar absolute left-[-1.5rem] top-0 bottom-0 w-[2px] bg-p-accent rounded-[2px]" />
 
                 {/* Logo */}
-                {"logoSrc" in item ? (
-                  <motion.div
-                    className="w-8 h-8 flex-shrink-0 mt-[0.1rem] overflow-hidden border border-p-border relative"
-                    style={{ borderRadius: "8px", boxShadow: "0 1px 4px 0 rgba(0,0,0,0.07)" }}
-                    variants={{ cardHover: { rotate: -6, y: -2 } }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  >
-                    <Image src={(item as typeof item & { logoSrc: string }).logoSrc} alt={item.company.en} fill className="object-cover" />
-                  </motion.div>
-                ) : (
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-[0.65rem] font-[400] flex-shrink-0 mt-[0.1rem] overflow-hidden ${item.logoClass}`}
-                    style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-                  >
-                    {item.logo}
-                  </div>
-                )}
+                <motion.div
+                  className="w-8 h-8 flex-shrink-0 mt-[0.1rem] overflow-hidden border border-p-border relative"
+                  style={{ borderRadius: "8px", boxShadow: "0 1px 4px 0 rgba(0,0,0,0.07)" }}
+                  variants={{ cardHover: { rotate: -6, y: -2 } }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                >
+                  <Image src={item.logoSrc} alt={item.company.en} fill className="object-cover" />
+                </motion.div>
 
                 {/* Body */}
                 <div>

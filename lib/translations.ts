@@ -16,23 +16,6 @@ export const translations = {
   },
   work: {
     label: { en: "[01] Work", pt: "[01] Projetos" },
-    cards: [
-      {
-        title:    { en: "Norus — Design System",        pt: "Norus — Sistema de Design" },
-        subtitle: { en: "B2B SaaS · Product Designer",  pt: "B2B SaaS · Product Designer" },
-        year: "2024–25",
-      },
-      {
-        title:    { en: "Fetchly Labs — Discovery",         pt: "Fetchly Labs — Discovery" },
-        subtitle: { en: "Consulting · Product Strategist",  pt: "Consultoria · Estrategista de Produto" },
-        year: "2025",
-      },
-      {
-        title:    { en: "LabSEC — Platform Redesign",        pt: "LabSEC — Redesign de Plataforma" },
-        subtitle: { en: "Research Lab · Product Designer",   pt: "Lab de Pesquisa · Product Designer" },
-        year: "2023",
-      },
-    ],
   },
   experience: {
     label: { en: "[02] Experience", pt: "[02] Experiências Profissionais" },

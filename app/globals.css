@@ -6,13 +6,14 @@
 
 /* ─── Portfolio design tokens ─── */
 :root {
+  --font-almarai: var(--font-geist-sans);
   --p-bg:      #FAFAF9;
   --p-ink:     #111110;
   --p-muted:   #888884;
   --p-soft:    #E8E8E4;
   --p-border:  #E2E2DE;
   --p-card:    #141414;
-  --p-accent:  #7C5CFC;
+  --p-accent:  #FF6F59;
   --p-accent2: #FF6B35;
   --p-white:   #ffffff;
 

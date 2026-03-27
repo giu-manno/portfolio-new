@@ -3,18 +3,20 @@
 import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
+import { projects } from "@/content/projects";
 import WorkCard from "./WorkCard";
 
-const gradients = [
-  "linear-gradient(135deg, #0F0C29 0%, #302B63 50%, #24243e 100%)",
-  "linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)",
-  "linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #11023d 100%)",
-];
+/** Split an array into chunks of size n. */
+function chunk<T>(arr: T[], n: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < arr.length; i += n) result.push(arr.slice(i, i + n));
+  return result;
+}
 
 export default function Work() {
   const { lang } = useLanguage();
   const labelRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLSpanElement>(null);
+  const lineRef  = useRef<HTMLSpanElement>(null);
   const [lineVisible, setLineVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function Work() {
     return () => io.disconnect();
   }, []);
 
-  const cards = t.work.cards;
+  const groups = chunk(projects, 3);
 
   return (
     <section id="work" className="py-20 border-t border-p-border max-sm:py-14">
@@ -39,43 +41,87 @@ export default function Work() {
           className="flex items-center gap-[0.6rem] text-[0.72rem] font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
-          <span
-            ref={lineRef}
-            className={`section-label-line${lineVisible ? " visible" : ""}`}
-          />
+          <span ref={lineRef} className={`section-label-line${lineVisible ? " visible" : ""}`} />
           {t.work.label[lang]}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-          {/* Tall card — left */}
-          <WorkCard
-            gradient={gradients[0]}
-            tall
-            title={cards[0].title[lang]}
-            subtitle={cards[0].subtitle[lang]}
-            year={cards[0].year}
-            delay={0.1}
-          />
+        {/* Repeating grid — groups of 3: [tall, short, short] */}
+        <div className="flex flex-col gap-4">
+          {groups.map((group, gi) => {
+            const baseDelay = gi * 3;
 
-          {/* Right column — two stacked */}
-          <div className="flex flex-col gap-4">
-            <WorkCard
-              gradient={gradients[1]}
-              title={cards[1].title[lang]}
-              subtitle={cards[1].subtitle[lang]}
-              year={cards[1].year}
-              delay={0.2}
-            />
-            <WorkCard
-              gradient={gradients[2]}
-              title={cards[2].title[lang]}
-              subtitle={cards[2].subtitle[lang]}
-              year={cards[2].year}
-              delay={0.3}
-              href="/work/ades"
-            />
-          </div>
+            // ── Full group of 3: tall left + 2 stacked right ──
+            if (group.length === 3) {
+              return (
+                <div key={gi} className="grid grid-cols-2 max-sm:grid-cols-1 gap-4">
+                  <WorkCard
+                    gradient={group[0].gradient}
+                    tall
+                    title={group[0].title[lang]}
+                    subtitle={group[0].subtitle[lang]}
+                    year={group[0].year}
+                    href={group[0].href}
+                    password={group[0].password}
+                    delay={(baseDelay + 1) * 0.1}
+                  />
+                  <div className="flex flex-col gap-4">
+                    <WorkCard
+                      gradient={group[1].gradient}
+                      title={group[1].title[lang]}
+                      subtitle={group[1].subtitle[lang]}
+                      year={group[1].year}
+                      href={group[1].href}
+                      password={group[1].password}
+                      delay={(baseDelay + 2) * 0.1}
+                    />
+                    <WorkCard
+                      gradient={group[2].gradient}
+                      title={group[2].title[lang]}
+                      subtitle={group[2].subtitle[lang]}
+                      year={group[2].year}
+                      href={group[2].href}
+                      password={group[2].password}
+                      delay={(baseDelay + 3) * 0.1}
+                    />
+                  </div>
+                </div>
+              );
+            }
+
+            // ── Remainder of 2: equal side by side ──
+            if (group.length === 2) {
+              return (
+                <div key={gi} className="grid grid-cols-2 max-sm:grid-cols-1 gap-4">
+                  {group.map((p, i) => (
+                    <WorkCard
+                      key={p.href}
+                      gradient={p.gradient}
+                      title={p.title[lang]}
+                      subtitle={p.subtitle[lang]}
+                      year={p.year}
+                      href={p.href}
+                      password={p.password}
+                      delay={(baseDelay + i + 1) * 0.1}
+                    />
+                  ))}
+                </div>
+              );
+            }
+
+            // ── Remainder of 1: full width ──
+            return (
+              <WorkCard
+                key={group[0].href}
+                gradient={group[0].gradient}
+                title={group[0].title[lang]}
+                subtitle={group[0].subtitle[lang]}
+                year={group[0].year}
+                href={group[0].href}
+                password={group[0].password}
+                delay={(baseDelay + 1) * 0.1}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

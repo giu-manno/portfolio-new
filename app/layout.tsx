@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Almarai } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
-
-const almarai = Almarai({
-  variable: "--font-almarai",
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Giulia Manno — Product Designer",
@@ -21,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${almarai.variable} h-full antialiased`}>
+    <html lang="en" className={`${GeistSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LanguageProvider>{children}</LanguageProvider>
       </body>

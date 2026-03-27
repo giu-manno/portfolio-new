@@ -43,7 +43,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        <span>Giulia.</span>
+        <span className="transition-colors duration-300 hover:text-[var(--p-accent)] cursor-default">Giulia.</span>
       </div>
 
       {/* Description */}

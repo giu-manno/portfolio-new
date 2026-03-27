@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useReveal } from "@/hooks/useReveal";
 
 interface WorkCardProps {
@@ -11,6 +12,7 @@ interface WorkCardProps {
   year: string;
   delay?: number;
   href?: string;
+  password?: string;
 }
 
 export default function WorkCard({
@@ -21,18 +23,16 @@ export default function WorkCard({
   year,
   delay = 0,
   href,
+  password,
 }: WorkCardProps) {
   const { ref, visible } = useReveal();
+  const router = useRouter();
 
-  const Wrapper = href ? Link : "div";
+  const className = `reveal work-card-hover noise-overlay relative rounded-[14px] overflow-hidden flex flex-col justify-end ${tall ? "row-span-2 min-h-[576px]" : "min-h-[280px]"} ${visible ? "visible" : ""}`;
+  const style = { background: gradient, transitionDelay: `${delay}s` };
 
-  return (
-    <Wrapper
-      {...(href ? { href } : {})}
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className={`reveal work-card-hover noise-overlay relative rounded-[14px] overflow-hidden flex flex-col justify-end ${tall ? "row-span-2 min-h-[576px]" : "min-h-[280px]"} ${visible ? "visible" : ""}${href ? " cursor-pointer" : ""}`}
-      style={{ background: gradient, transitionDelay: `${delay}s` }}
-    >
+  const inner = (
+    <>
       {/* Image placeholder — replace with <Image> once assets are ready */}
       <div className="absolute inset-0 z-[2] p-6 pb-16 flex items-center justify-center">
         <div className="w-full h-full rounded-lg bg-white/10" />
@@ -64,6 +64,60 @@ export default function WorkCard({
           {year}
         </div>
       </div>
-    </Wrapper>
+    </>
+  );
+
+  // Protected card — intercept click, prompt on the homepage
+  if (href && password) {
+    const storageKey = `unlocked-${href.split("/").filter(Boolean).pop()}`;
+
+    function handleClick(e: React.MouseEvent) {
+      e.preventDefault();
+      if (sessionStorage.getItem(storageKey) === "1") {
+        router.push(href!);
+        return;
+      }
+      const input = window.prompt("This case study is password-protected. Enter password:");
+      if (input === password) {
+        sessionStorage.setItem(storageKey, "1");
+        router.push(href!);
+      }
+      // Wrong or cancelled — do nothing, user stays on the page
+    }
+
+    return (
+      <div
+        ref={ref as React.RefObject<HTMLDivElement>}
+        className={`${className} cursor-pointer`}
+        style={style}
+        onClick={handleClick}
+      >
+        {inner}
+      </div>
+    );
+  }
+
+  // Regular linked card
+  if (href) {
+    return (
+      <Link
+        href={href}
+        ref={ref as React.RefObject<HTMLAnchorElement>}
+        className={`${className} cursor-pointer`}
+        style={style}
+      >
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={className}
+      style={style}
+    >
+      {inner}
+    </div>
   );
 }
