@@ -79,7 +79,7 @@ export default function Experience() {
                   variants={{ cardHover: { rotate: -6, y: -2 } }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
-                  <Image src={item.logoSrc} alt={item.company.en} fill className="object-cover" />
+                  <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${item.logoSrc}`} alt={item.company.en} fill className="object-cover" />
                 </motion.div>
 
                 {/* Body */}

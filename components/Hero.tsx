@@ -36,7 +36,7 @@ export default function Hero() {
           transition={{ type: "spring", stiffness: 300, damping: 15 }}
         >
           <Image
-            src="/Profile Image Container.png"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Profile Image Container.png`}
             alt="Giulia Manno"
             fill
             className="object-cover"
