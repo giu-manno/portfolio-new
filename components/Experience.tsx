@@ -45,7 +45,7 @@ export default function Experience() {
               {exp.blurb[lang]}
             </p>
             <a
-              href="/Giulia Manno Lima - 2026 CV.pdf"
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
               download
               className="self-start inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-all duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
