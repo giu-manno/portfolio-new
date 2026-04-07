@@ -12,6 +12,54 @@ import {
   ImgPlaceholder,
   RevealSection,
 } from "@/components/case-study/primitives";
+import { CaseStudyImage } from "@/components/case-study/CaseStudyImage";
+import { useLightbox } from "@/components/case-study/LightboxContext";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image, { type StaticImageData } from "next/image";
+import adesWireframes from "@/public/ades-casestudy-images/ades-wireframes.webp";
+import adesShowcase from "@/public/ades-casestudy-images/ades-showcase.webp";
+import adesOverviewNew from "@/public/ades-casestudy-images/ades-overview-new.webp";
+import adesUsertest1 from "@/public/ades-casestudy-images/ades-usertest-1.webp";
+import adesUsertest2 from "@/public/ades-casestudy-images/ades-usertest-2.webp";
+import adesUsertest3 from "@/public/ades-casestudy-images/ades-usertest-3.webp";
+
+function BentoCell({
+  src, alt, caption, className, onOpen,
+}: {
+  src: StaticImageData; alt: string; caption?: string; className: string; onOpen: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [-18, 18]);
+  return (
+    <div ref={ref} className={`relative overflow-hidden rounded-xl cursor-zoom-in ${className}`} style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }} onClick={onOpen}>
+      <motion.div style={{ y, position: "absolute", top: -18, bottom: -18, left: 0, right: 0 }}>
+        <Image src={src} alt={alt} fill placeholder="blur" className="object-cover"
+          sizes="(max-width: 640px) 100vw, 50vw" />
+      </motion.div>
+    </div>
+  );
+}
+
+function UserTestingBento() {
+  const { register, open } = useLightbox();
+  const indices = useRef<number[]>([]);
+  useEffect(() => {
+    indices.current = [
+      register({ src: adesUsertest1, alt: "User testing session — think-aloud with paper prototypes", caption: "User testing session — think-aloud method with paper prototypes" }),
+      register({ src: adesUsertest2, alt: "Participant annotating the prototype", caption: "Participant annotating the prototype during the focal group session" }),
+      register({ src: adesUsertest3, alt: "Facilitator observing user flow navigation", caption: "Facilitator observing user flow navigation and collecting feedback" }),
+    ];
+  }, []);
+  return (
+    <div className="grid grid-cols-3 gap-3 my-6">
+      <BentoCell src={adesUsertest1} alt="User testing session" className="col-span-2 h-[260px]" onOpen={() => open(indices.current[0])} />
+      <BentoCell src={adesUsertest2} alt="Participant annotating prototype" className="col-span-1 h-[260px]" onOpen={() => open(indices.current[1])} />
+      <BentoCell src={adesUsertest3} alt="Facilitator observing navigation" className="col-span-3 h-[200px]" onOpen={() => open(indices.current[2])} />
+    </div>
+  );
+}
 
 const SECTIONS = [
   { id: "s-context",  num: "01", label: "Context" },
@@ -25,7 +73,6 @@ const META = [
   { label: "Role",         value: "Product Designer\nLead Researcher" },
   { label: "Timeline",     value: "Jul — Dec 2023" },
   { label: "Deliverables", value: "Research · Pattern Library · Interactive Prototype" },
-  { label: "Tools",        value: "Figma · Bootstrap" },
 ];
 
 export default function AdesCaseStudy() {
@@ -128,7 +175,11 @@ export default function AdesCaseStudy() {
             text="A clear, minimal entry point that doesn't force users to understand the full feature set before completing their first task."
           />
         </div>
-        <ImgPlaceholder caption="Early prototype screens — document list, upload flow, and co-signing configuration" />
+        <CaseStudyImage
+          src={adesWireframes}
+          alt="Early wireframe screens — document list, upload flow, and co-signing configuration"
+          caption="Early prototype screens — document list, upload flow, and co-signing configuration"
+        />
       </RevealSection>
 
       {/* 04 Design Process */}
@@ -153,6 +204,7 @@ export default function AdesCaseStudy() {
             title="Usability testing (think-aloud)"
             body="Facilitated a focal group session using the think-aloud method. Participants received pen and paper to annotate their experience while navigating paper prototypes. Focused on comprehension, not task completion speed."
           />
+          <UserTestingBento />
           <ProcessStep
             num="03"
             title="Iteration on navigation structure"
@@ -169,12 +221,20 @@ export default function AdesCaseStudy() {
             body="Built the final interactive prototype and a Bootstrap-based pattern library documenting components, states, and interaction rules — structured as handoff documentation for the development team."
           />
         </div>
-        <ImgPlaceholder caption="High-fidelity screens — authentication, document review, sharing options, and dashboard views" />
+        <CaseStudyImage
+          src={adesOverviewNew}
+          alt="High-fidelity screens — authentication, document review, sharing options, and dashboard views"
+          caption="High-fidelity screens — authentication, document review, sharing options, and dashboard views"
+        />
       </RevealSection>
 
       {/* 05 Outcomes */}
       <RevealSection id="s-outcomes">
         <SectionHeader num="05" title="Outcomes" />
+        <CaseStudyImage
+          src={adesShowcase}
+          alt="High-fidelity screens — authentication, document review, sharing options, and dashboard views"
+        />
         <div
           className="grid my-6 border border-[var(--p-border)] rounded-[10px] overflow-hidden"
           style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--p-border)" }}

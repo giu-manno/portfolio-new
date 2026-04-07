@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import CtaFooter from "@/components/CtaFooter";
 import Footer from "@/components/Footer";
 import PasswordGate from "@/components/PasswordGate";
+import { LightboxProvider } from "@/components/case-study/LightboxContext";
 
 export interface CaseStudySection {
   id: string;
@@ -92,6 +93,7 @@ export default function CaseStudyLayout({
     : undefined;
 
   return (
+    <LightboxProvider>
     <div style={cssVars}>
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-50 bg-p-bg/[0.88] backdrop-blur-md border-b border-p-border">
@@ -158,7 +160,7 @@ export default function CaseStudyLayout({
             {/* Meta strip */}
             <div
               className="grid mt-16 hero-item hero-item-3"
-              style={{ gridTemplateColumns: "repeat(4, 1fr)", borderTop: "1px solid rgba(255,255,255,0.1)" }}
+              style={{ gridTemplateColumns: `repeat(${meta.length}, 1fr)`, borderTop: "1px solid rgba(255,255,255,0.1)" }}
             >
               {meta.map((item, i) => (
                 <div
@@ -166,7 +168,8 @@ export default function CaseStudyLayout({
                   className="py-6"
                   style={{
                     borderRight: i < meta.length - 1 ? "1px solid rgba(255,255,255,0.08)" : undefined,
-                    paddingLeft: i > 0 ? "2rem" : undefined,
+                    paddingLeft: i > 0 ? "1rem" : undefined,
+                    paddingRight: i < meta.length - 1 ? "1rem" : undefined,
                   }}
                 >
                   <div
@@ -262,5 +265,6 @@ export default function CaseStudyLayout({
 
       </ConditionalGate>
     </div>
+    </LightboxProvider>
   );
 }

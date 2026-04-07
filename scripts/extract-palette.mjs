@@ -21,8 +21,8 @@ const root = resolve(__dirname, "..");
 // ── Config ────────────────────────────────────────────────────────────────────
 const CASE_STUDIES = {
   ades: [
-    "public/ades-casestudy-images/Frame 4 4.png",
-    "public/ades-casestudy-images/Group 85.png",
+    "public/ades-casestudy-images/ades-showcase.webp",
+    "public/ades-casestudy-images/ades-overview.webp",
   ],
 };
 

@@ -85,11 +85,24 @@ export function HmwCallout({ children }: { children: React.ReactNode }) {
 }
 
 export function InsightCard({ label, text }: { label: string; text: string }) {
+  const isOpportunity = label.toLowerCase().includes("opportunit");
   return (
-    <div className="bg-[var(--p-soft)] border border-[var(--p-border)] rounded-[10px] p-5">
+    <div
+      className="rounded-[10px] p-5"
+      style={isOpportunity ? {
+        background: "color-mix(in srgb, var(--p-accent) 9%, transparent)",
+        border: "1px solid color-mix(in srgb, var(--p-accent) 28%, transparent)",
+      } : {
+        background: "var(--p-soft)",
+        border: "1px solid var(--p-border)",
+      }}
+    >
       <div
-        className="text-[0.65rem] tracking-[0.14em] uppercase text-[var(--p-muted)] mb-2"
-        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+        className="text-[0.65rem] tracking-[0.14em] uppercase mb-2"
+        style={{
+          fontFamily: "var(--font-almarai), system-ui, sans-serif",
+          color: isOpportunity ? "color-mix(in srgb, var(--p-accent) 80%, #333)" : "var(--p-muted)",
+        }}
       >
         {label}
       </div>

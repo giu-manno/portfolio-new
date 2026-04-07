@@ -1,0 +1,65 @@
+"use client";
+
+import Image, { type StaticImageData } from "next/image";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useLightbox } from "./LightboxContext";
+
+export function CaseStudyImage({
+  src,
+  alt,
+  caption,
+}: {
+  src: StaticImageData;
+  alt: string;
+  caption?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const indexRef = useRef<number>(-1);
+  const { register, open } = useLightbox();
+
+  useEffect(() => {
+    indexRef.current = register({ src, alt, caption });
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [-24, 24]);
+
+  const aspectRatio = `${src.width} / ${src.height}`;
+
+  return (
+    <div className="my-10 relative" ref={containerRef}>
+      <div
+        className="w-full rounded-xl overflow-hidden relative cursor-zoom-in"
+        style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }}
+        style={{ aspectRatio }}
+        onClick={() => open(indexRef.current)}
+      >
+        <motion.div
+          style={{ y, position: "absolute", top: -24, bottom: -24, left: 0, right: 0 }}
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            placeholder="blur"
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px"
+          />
+        </motion.div>
+      </div>
+
+      {caption && (
+        <p
+          className="text-[0.72rem] text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
+          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+        >
+          {caption}
+        </p>
+      )}
+    </div>
+  );
+}

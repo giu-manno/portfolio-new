@@ -8,5 +8,5 @@ export interface CaseStudyPalette {
 }
 
 export const palettes: Record<string, CaseStudyPalette> = {
-  ades: { from: "#19a57e", to: "#0a4434", accent: "#128166" },
+  ades: { from: "#1ca484", to: "#0c4437", accent: "#0b8369" },
 };
