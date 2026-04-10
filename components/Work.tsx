@@ -63,6 +63,7 @@ export default function Work() {
                     href={group[0].href}
                     password={group[0].password}
                     image={group[0].image}
+                    chipColor={group[0].chipColor}
                     delay={(baseDelay + 1) * 0.1}
                   />
                   <div className="flex flex-col gap-4">
@@ -74,6 +75,7 @@ export default function Work() {
                       href={group[1].href}
                       password={group[1].password}
                       image={group[1].image}
+                      chipColor={group[1].chipColor}
                       delay={(baseDelay + 2) * 0.1}
                     />
                     <WorkCard
@@ -84,6 +86,7 @@ export default function Work() {
                       href={group[2].href}
                       password={group[2].password}
                       image={group[2].image}
+                      chipColor={group[2].chipColor}
                       delay={(baseDelay + 3) * 0.1}
                     />
                   </div>
@@ -105,6 +108,7 @@ export default function Work() {
                       href={p.href}
                       password={p.password}
                       image={p.image}
+                      chipColor={p.chipColor}
                       delay={(baseDelay + i + 1) * 0.1}
                     />
                   ))}
@@ -123,6 +127,7 @@ export default function Work() {
                 href={group[0].href}
                 password={group[0].password}
                 image={group[0].image}
+                chipColor={group[0].chipColor}
                 delay={(baseDelay + 1) * 0.1}
               />
             );

@@ -113,10 +113,6 @@
     font-family: var(--font-almarai), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    overflow-x: hidden;
-  }
-  html {
-    scroll-behavior: smooth;
   }
 }
 
