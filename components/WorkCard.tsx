@@ -58,6 +58,7 @@ export default function WorkCard({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${image}`}
             alt={title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
             className="object-cover object-top"
           />
         ) : (

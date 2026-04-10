@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image, { type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Switch } from "@/components/ui/switch";
@@ -27,6 +28,7 @@ export interface NextProject {
 
 interface CaseStudyLayoutProps {
   heroGradient: string;
+  heroImage?: StaticImageData;
   accentColor?: string;
   eyebrow: string;
   title: string;
@@ -56,6 +58,7 @@ function ConditionalGate({
 
 export default function CaseStudyLayout({
   heroGradient,
+  heroImage,
   accentColor,
   eyebrow,
   title,
@@ -95,16 +98,26 @@ export default function CaseStudyLayout({
   return (
     <LightboxProvider>
     <div style={cssVars}>
+
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-50 bg-p-bg/[0.88] backdrop-blur-md border-b border-p-border">
         <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-base tracking-[-0.02em] text-p-ink no-underline font-[400]"
-            style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-          >
-            giulia manno
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/"
+              className="text-base tracking-[-0.02em] text-p-ink no-underline font-[400]"
+              style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+            >
+              giulia manno
+            </Link>
+            <Link
+              href="/#work"
+              className="text-sm text-[var(--p-muted)] no-underline transition-colors duration-150 hover:text-[var(--p-ink)]"
+              style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+            >
+              ← All work
+            </Link>
+          </div>
           <button
             onClick={toggle}
             className="flex items-center gap-2 cursor-pointer select-none"
@@ -125,68 +138,71 @@ export default function CaseStudyLayout({
       {/* ── Everything below the nav is optionally gated ── */}
       <ConditionalGate password={password} slug={slug}>
 
-        {/* ── Hero ── */}
-        <div
-          className="relative overflow-hidden noise-overlay"
-          style={{ background: heroGradient, paddingTop: "4rem", paddingBottom: "5rem" }}
-        >
-          <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 relative z-10">
-            <Link
-              href="/#work"
-              className="inline-flex items-center gap-1.5 text-sm no-underline transition-opacity duration-200 hover:opacity-100 mb-8"
-              style={{ color: "rgba(255,255,255,0.85)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            >
-              ← All work
-            </Link>
-            <p
-              className="text-xs tracking-[0.15em] uppercase mb-6"
-              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            >
-              {eyebrow}
-            </p>
-            <h1
-              className="font-[400] tracking-[-0.04em] leading-[0.95] text-white mb-6 hero-item hero-item-1"
-              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            >
-              {title}
-            </h1>
-            <p
-              className="text-body-lg leading-[1.75] font-[300] max-w-[520px] hero-item hero-item-2"
-              style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            >
-              {tagline}
-            </p>
+        {/* ── Hero image — fixed behind everything, content scrolls over it ── */}
+        <div className="fixed left-0 right-0 z-0 overflow-hidden" style={{ top: 0, height: "70vh" }}>
+          {heroImage ? (
+            <Image
+              src={heroImage}
+              alt={title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="w-full h-full" style={{ background: heroGradient }} />
+          )}
+        </div>
 
-            {/* Meta strip */}
-            <div
-              className="grid mt-16 hero-item hero-item-3"
-              style={{ gridTemplateColumns: `repeat(${meta.length}, 1fr)`, borderTop: "1px solid rgba(255,255,255,0.1)" }}
-            >
-              {meta.map((item, i) => (
+        {/* Spacer: same height as hero image, pushes content into view below */}
+        <div aria-hidden="true" style={{ height: "70vh" }} />
+
+        {/* ── Content slides over the hero image ── */}
+        <div className="relative z-10 bg-[var(--p-bg)]">
+
+        {/* ── Info block ── */}
+        <div className="border-b border-[var(--p-border)]">
+          <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-12 flex gap-16 max-sm:flex-col max-sm:gap-8">
+
+            {/* Left: eyebrow · title · tagline */}
+            <div className="flex-1 min-w-0">
+              <h1
+                className="hero-item hero-item-1 font-[400] tracking-[-0.04em] leading-[0.95] text-[var(--p-ink)] mb-5"
+                style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+              >
+                {title}
+              </h1>
+              <p
+                className="hero-item hero-item-2 text-body-lg leading-[1.75] font-[300] max-w-[480px]"
+                style={{ color: "var(--p-muted)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+              >
+                {tagline}
+              </p>
+            </div>
+
+            {/* Right: metadata rows */}
+            <div className="w-[300px] max-sm:w-full flex-shrink-0 self-end">
+              {meta.map((item) => (
                 <div
                   key={item.label}
-                  className="py-6"
-                  style={{
-                    borderRight: i < meta.length - 1 ? "1px solid rgba(255,255,255,0.08)" : undefined,
-                    paddingLeft: i > 0 ? "1rem" : undefined,
-                    paddingRight: i < meta.length - 1 ? "1rem" : undefined,
-                  }}
+                  className="flex justify-between items-baseline gap-4 py-3 border-t border-[var(--p-border)]"
                 >
-                  <div
-                    className="text-xs tracking-[0.14em] uppercase mb-1.5"
-                    style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+                  <span
+                    className="text-xs tracking-[0.12em] uppercase flex-shrink-0"
+                    style={{ color: "var(--p-muted)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.label}
-                  </div>
-                  <div
-                    className="text-sm font-[400] leading-[1.5]"
-                    style={{ color: "rgba(255,255,255,0.8)", fontFamily: "var(--font-almarai), system-ui, sans-serif", whiteSpace: "pre-line" }}
+                  </span>
+                  <span
+                    className="text-sm font-[400] text-right leading-[1.5]"
+                    style={{ color: "var(--p-ink)", fontFamily: "var(--font-almarai), system-ui, sans-serif", whiteSpace: "pre-line" }}
                   >
                     {item.value}
-                  </div>
+                  </span>
                 </div>
               ))}
             </div>
+
           </div>
         </div>
 
@@ -262,6 +278,8 @@ export default function CaseStudyLayout({
 
         <CtaFooter />
         <Footer />
+
+        </div>{/* end content-over-hero */}
 
       </ConditionalGate>
     </div>

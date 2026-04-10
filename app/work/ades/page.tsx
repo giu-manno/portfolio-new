@@ -80,6 +80,7 @@ export default function AdesCaseStudy() {
   return (
     <CaseStudyLayout
       heroGradient={`linear-gradient(135deg, ${from} 0%, ${to} 100%)`}
+      heroImage={adesShowcase}
       accentColor={accent}
       eyebrow="Case Study · LabSEC / UFSC"
       title="Ades"

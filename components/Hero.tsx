@@ -39,6 +39,7 @@ export default function Hero() {
             src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Profile Image Container.png`}
             alt="Giulia Manno"
             fill
+            priority
             className="object-cover"
           />
         </motion.div>

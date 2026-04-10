@@ -32,7 +32,6 @@ const META = [
   { label: "Role",        value: "Product Designer · UI Lead" },
   { label: "Timeline",    value: "March 2024 — February 2025" },
   { label: "Deliverables",value: "IA · Wireframes · Mid-fidelity Prototype" },
-  { label: "Context",     value: "B2B SaaS · Energy Market" },
 ];
 
 export default function Suite4EnergyCaseStudy() {

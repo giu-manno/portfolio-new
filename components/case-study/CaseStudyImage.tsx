@@ -9,10 +9,12 @@ export function CaseStudyImage({
   src,
   alt,
   caption,
+  priority = false,
 }: {
   src: StaticImageData;
   alt: string;
   caption?: string;
+  priority?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef<number>(-1);
@@ -44,6 +46,7 @@ export function CaseStudyImage({
             src={src}
             alt={alt}
             fill
+            priority={priority}
             placeholder="blur"
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px"
