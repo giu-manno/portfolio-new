@@ -90,7 +90,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
                 {/* Counter */}
                 {total > 1 && (
                   <p
-                    className="absolute top-5 left-0 right-0 text-center text-[0.65rem] tracking-[0.14em] uppercase text-white/30"
+                    className="absolute top-5 left-0 right-0 text-center text-xs tracking-[0.14em] uppercase text-white/30"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {state.index + 1} / {total}
@@ -130,7 +130,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
                   {/* Caption */}
                   {current.caption && (
                     <p
-                      className="text-[0.75rem] text-white/50 text-center tracking-[0.04em] max-w-[560px] leading-[1.6]"
+                      className="text-sm text-white/50 text-center tracking-[0.04em] max-w-[560px] leading-[1.6]"
                       style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                     >
                       {current.caption}

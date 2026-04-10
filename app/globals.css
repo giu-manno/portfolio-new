@@ -89,6 +89,18 @@
 
   /* Almarai font */
   --font-almarai: var(--font-almarai);
+
+  /* ── Type scale ──
+     display  → hero headline (clamp)
+     heading  → section headers, HMW callouts (clamp)
+     body-lg  → hero tagline, about paragraphs, cta subtitle (clamp: 1rem mobile → 1.25rem desktop)
+     base     → nav links, CTAs, body text       (1rem / 16px, built-in)
+     sm       → secondary text, roles, chips     (0.875rem / 14px, built-in)
+     xs       → labels, captions, eyebrows       (0.75rem / 12px, built-in)
+  */
+  --font-size-display:  clamp(2.2rem, 5vw, 4rem);
+  --font-size-heading:  clamp(1.4rem, 2.5vw, 1.9rem);
+  --font-size-body-lg:  clamp(1rem, 1.5vw, 1.25rem);
 }
 
 @layer base {
@@ -99,7 +111,7 @@
   body {
     @apply bg-p-bg text-p-ink;
     font-family: var(--font-almarai), system-ui, sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
   }

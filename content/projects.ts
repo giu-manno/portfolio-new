@@ -7,6 +7,7 @@ export interface Project {
   href:     string;
   gradient: string;
   password?: string;
+  image?:   string;
 }
 
 // Add new case studies here. Order = display order on the homepage.
@@ -26,5 +27,6 @@ export const projects: Project[] = [
     year:     "2023",
     href:     "/work/ades",
     gradient: `linear-gradient(135deg, ${palettes.ades.from} 0%, ${palettes.ades.to} 100%)`,
+    image:    "/ades-casestudy-images/ades-showcase.webp",
   },
 ];

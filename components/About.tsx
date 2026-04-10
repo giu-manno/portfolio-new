@@ -17,7 +17,7 @@ export default function About() {
         {/* Section label */}
         <div
           ref={labelRef as React.RefObject<HTMLDivElement>}
-          className="flex items-center gap-[0.6rem] text-[0.72rem] font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
+          className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           <span className={`section-label-line${labelVis ? " visible" : ""}`} />
@@ -32,13 +32,13 @@ export default function About() {
             className={`reveal ${textVis ? "visible" : ""}`}
           >
             <p
-              className="text-[0.97rem] leading-[1.8] text-[#555550] mb-4"
+              className="text-body-lg leading-[1.8] text-[#555550] mb-4"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {ab.p1[lang]}
             </p>
             <p
-              className="text-[0.97rem] leading-[1.8] text-[#555550]"
+              className="text-body-lg leading-[1.8] text-[#555550]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {ab.p2[lang]}
@@ -48,7 +48,7 @@ export default function About() {
               {ab.chips.map((chip) => (
                 <span
                   key={chip}
-                  className="text-[0.78rem] font-[400] text-p-ink bg-p-soft rounded-full px-3 py-[0.35rem] border border-p-border transition-all duration-200 hover:bg-p-border hover:-translate-y-0.5 cursor-default"
+                  className="text-sm font-[400] text-p-ink bg-p-soft rounded-full px-3 py-[0.35rem] border border-p-border transition-all duration-200 hover:bg-p-border hover:-translate-y-0.5 cursor-default"
                   style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                 >
                   {chip}
@@ -66,7 +66,7 @@ export default function About() {
             {/* Education */}
             <div>
               <h4
-                className="text-[0.72rem] font-[400] tracking-[0.1em] uppercase text-p-muted mb-3"
+                className="text-xs font-[400] tracking-[0.1em] uppercase text-p-muted mb-3"
                 style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
               >
                 {ab.eduTitle[lang]}
@@ -74,13 +74,13 @@ export default function About() {
               {ab.edu.map((item, i) => (
                 <div key={i} className="py-[0.9rem] border-b border-p-border first:border-t first:border-p-border">
                   <div
-                    className="text-[0.88rem] font-[400] text-p-ink"
+                    className="text-base font-[400] text-p-ink"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.name[lang]}
                   </div>
                   <div
-                    className="flex justify-between text-[0.78rem] text-p-muted mt-[0.2rem]"
+                    className="flex justify-between text-sm text-p-muted mt-[0.2rem]"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     <span>{item.sub[lang]}</span>
@@ -93,7 +93,7 @@ export default function About() {
             {/* Also */}
             <div>
               <h4
-                className="text-[0.72rem] font-[400] tracking-[0.1em] uppercase text-p-muted mb-3"
+                className="text-xs font-[400] tracking-[0.1em] uppercase text-p-muted mb-3"
                 style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
               >
                 {ab.alsoTitle[lang]}
@@ -101,13 +101,13 @@ export default function About() {
               {ab.also.map((item, i) => (
                 <div key={i} className="py-[0.9rem] border-b border-p-border first:border-t first:border-p-border">
                   <div
-                    className="text-[0.88rem] font-[400] text-p-ink"
+                    className="text-base font-[400] text-p-ink"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.name[lang]}
                   </div>
                   <div
-                    className="flex justify-between text-[0.78rem] text-p-muted mt-[0.2rem]"
+                    className="flex justify-between text-sm text-p-muted mt-[0.2rem]"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     <span>{item.sub[lang]}</span>

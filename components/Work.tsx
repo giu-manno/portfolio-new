@@ -38,7 +38,7 @@ export default function Work() {
         {/* Section label */}
         <div
           ref={labelRef}
-          className="flex items-center gap-[0.6rem] text-[0.72rem] font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
+          className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           <span ref={lineRef} className={`section-label-line${lineVisible ? " visible" : ""}`} />
@@ -62,6 +62,7 @@ export default function Work() {
                     year={group[0].year}
                     href={group[0].href}
                     password={group[0].password}
+                    image={group[0].image}
                     delay={(baseDelay + 1) * 0.1}
                   />
                   <div className="flex flex-col gap-4">
@@ -72,6 +73,7 @@ export default function Work() {
                       year={group[1].year}
                       href={group[1].href}
                       password={group[1].password}
+                      image={group[1].image}
                       delay={(baseDelay + 2) * 0.1}
                     />
                     <WorkCard
@@ -81,6 +83,7 @@ export default function Work() {
                       year={group[2].year}
                       href={group[2].href}
                       password={group[2].password}
+                      image={group[2].image}
                       delay={(baseDelay + 3) * 0.1}
                     />
                   </div>
@@ -101,6 +104,7 @@ export default function Work() {
                       year={p.year}
                       href={p.href}
                       password={p.password}
+                      image={p.image}
                       delay={(baseDelay + i + 1) * 0.1}
                     />
                   ))}
@@ -118,6 +122,7 @@ export default function Work() {
                 year={group[0].year}
                 href={group[0].href}
                 password={group[0].password}
+                image={group[0].image}
                 delay={(baseDelay + 1) * 0.1}
               />
             );

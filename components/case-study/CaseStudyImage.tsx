@@ -53,7 +53,7 @@ export function CaseStudyImage({
 
       {caption && (
         <p
-          className="text-[0.72rem] text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
+          className="text-xs text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           {caption}

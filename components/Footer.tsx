@@ -9,13 +9,13 @@ export default function Footer() {
     <footer className="bg-p-ink border-t border-white/[0.08]">
       <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] py-5 flex justify-between items-center max-sm:flex-col max-sm:gap-[0.4rem] max-sm:text-center max-sm:px-5 max-sm:py-4">
       <p
-        className="text-[0.73rem] text-white/30"
+        className="text-xs text-white/30"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {t.footer.copy[lang]}
       </p>
       <p
-        className="text-[0.73rem] text-white/30"
+        className="text-xs text-white/30"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {t.footer.tagline[lang]}

@@ -100,7 +100,7 @@ export default function CaseStudyLayout({
         <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between">
           <Link
             href="/"
-            className="text-[0.9rem] tracking-[-0.02em] text-p-ink no-underline font-[400]"
+            className="text-base tracking-[-0.02em] text-p-ink no-underline font-[400]"
             style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           >
             giulia manno
@@ -111,11 +111,11 @@ export default function CaseStudyLayout({
             style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             aria-label="Toggle language"
           >
-            <span className={`text-[0.78rem] flex items-center gap-1 transition-opacity duration-150 ${lang === "pt" ? "opacity-100" : "opacity-40"}`}>
+            <span className={`text-sm flex items-center gap-1 transition-opacity duration-150 ${lang === "pt" ? "opacity-100" : "opacity-40"}`}>
               🇧🇷 <span>PT</span>
             </span>
             <Switch checked={lang === "pt"} className="pointer-events-none" />
-            <span className={`text-[0.78rem] flex items-center gap-1 transition-opacity duration-150 ${lang === "en" ? "opacity-100" : "opacity-40"}`}>
+            <span className={`text-sm flex items-center gap-1 transition-opacity duration-150 ${lang === "en" ? "opacity-100" : "opacity-40"}`}>
               <span>EN</span> 🇺🇸
             </span>
           </button>
@@ -133,13 +133,13 @@ export default function CaseStudyLayout({
           <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 relative z-10">
             <Link
               href="/#work"
-              className="inline-flex items-center gap-1.5 text-[0.78rem] no-underline transition-opacity duration-200 hover:opacity-100 mb-8"
+              className="inline-flex items-center gap-1.5 text-sm no-underline transition-opacity duration-200 hover:opacity-100 mb-8"
               style={{ color: "rgba(255,255,255,0.85)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               ← All work
             </Link>
             <p
-              className="text-[0.72rem] tracking-[0.15em] uppercase mb-6"
+              className="text-xs tracking-[0.15em] uppercase mb-6"
               style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {eyebrow}
@@ -151,7 +151,7 @@ export default function CaseStudyLayout({
               {title}
             </h1>
             <p
-              className="text-[1.05rem] leading-[1.75] font-[300] max-w-[520px] hero-item hero-item-2"
+              className="text-body-lg leading-[1.75] font-[300] max-w-[520px] hero-item hero-item-2"
               style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {tagline}
@@ -173,13 +173,13 @@ export default function CaseStudyLayout({
                   }}
                 >
                   <div
-                    className="text-[0.68rem] tracking-[0.14em] uppercase mb-1.5"
+                    className="text-xs tracking-[0.14em] uppercase mb-1.5"
                     style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.label}
                   </div>
                   <div
-                    className="text-[0.88rem] font-[400] leading-[1.5]"
+                    className="text-sm font-[400] leading-[1.5]"
                     style={{ color: "rgba(255,255,255,0.8)", fontFamily: "var(--font-almarai), system-ui, sans-serif", whiteSpace: "pre-line" }}
                   >
                     {item.value}
@@ -196,7 +196,7 @@ export default function CaseStudyLayout({
 
           <aside className="hidden min-[900px]:flex flex-col gap-0 sticky top-20" aria-label="Page sections">
             <div
-              className="text-[0.65rem] tracking-[0.14em] uppercase text-[var(--p-muted)] mb-4 pb-3 border-b border-[var(--p-border)]"
+              className="text-xs tracking-[0.14em] uppercase text-[var(--p-muted)] mb-4 pb-3 border-b border-[var(--p-border)]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               On this page
@@ -207,7 +207,7 @@ export default function CaseStudyLayout({
                 <a
                   key={id}
                   href={`#${id}`}
-                  className="flex items-center gap-2.5 text-[0.78rem] py-2 border-b border-[var(--p-border)] no-underline transition-colors duration-200 relative pl-4"
+                  className="flex items-center gap-2.5 text-sm py-2 border-b border-[var(--p-border)] no-underline transition-colors duration-200 relative pl-4"
                   style={{
                     color: active ? "var(--p-ink)" : "var(--p-muted)",
                     fontWeight: active ? 400 : 300,
@@ -218,7 +218,7 @@ export default function CaseStudyLayout({
                     className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] rounded-sm bg-[var(--p-accent)] transition-all duration-[250ms]"
                     style={{ height: active ? "16px" : "0px" }}
                   />
-                  <span className="text-[0.65rem] opacity-50" style={{ color: "var(--p-muted)" }}>
+                  <span className="text-xs opacity-50" style={{ color: "var(--p-muted)" }}>
                     {num}
                   </span>
                   {label}
@@ -236,7 +236,7 @@ export default function CaseStudyLayout({
           <div className="w-full max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-8 flex items-center justify-end gap-8">
             <div className="text-right">
               <div
-                className="text-[0.72rem] tracking-[0.14em] uppercase text-[var(--p-muted)] mb-2"
+                className="text-xs tracking-[0.14em] uppercase text-[var(--p-muted)] mb-2"
                 style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
               >
                 Next case study

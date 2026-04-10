@@ -75,7 +75,7 @@ export default function CtaFooter() {
 
       <p
         ref={subRef as React.RefObject<HTMLParagraphElement>}
-        className={`reveal text-[0.9rem] text-white/45 max-w-[340px] leading-[1.7] ${subVis ? "visible" : ""}`}
+        className={`reveal text-body-lg text-white/45 max-w-[340px] leading-[1.7] ${subVis ? "visible" : ""}`}
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif", transitionDelay: "0.1s" }}
       >
         {t.cta.sub[lang]}
@@ -88,7 +88,7 @@ export default function CtaFooter() {
       >
         <motion.a
           href="mailto:mannogiu@gmail.com"
-          className="inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-white text-p-ink border-white hover:bg-[#eee] hover:border-[#eee]"
+          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-white text-p-ink border-white hover:bg-[#eee] hover:border-[#eee]"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           whileHover={{ rotate: -3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -104,7 +104,7 @@ export default function CtaFooter() {
           href="https://www.linkedin.com/in/giulia-manno-88681a144/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-white/75 border-white/20 hover:bg-white/[0.08] hover:text-white hover:border-white/35"
+          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-white/75 border-white/20 hover:bg-white/[0.08] hover:text-white hover:border-white/35"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           whileHover={{ rotate: -3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}

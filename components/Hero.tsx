@@ -49,7 +49,7 @@ export default function Hero() {
       {/* Description */}
       <div className="hero-item hero-item-2 mt-8 flex justify-center">
         <p
-          className="text-[1rem] leading-[1.7] text-[#555550] max-w-[440px] font-[300] text-center"
+          className="text-body-lg leading-[1.6] text-[#555550] max-w-[500px] font-[300] text-center"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           {t.hero.desc[lang]}
@@ -60,7 +60,7 @@ export default function Hero() {
       <div className="hero-item hero-item-3 mt-10 flex gap-3 flex-wrap justify-center">
         <motion.a
           href="mailto:mannogiu@gmail.com"
-          className="inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
+          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           whileHover={{ rotate: 3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -76,7 +76,7 @@ export default function Hero() {
           href="https://www.linkedin.com/in/giulia-manno-88681a144/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-p-ink border-p-border hover:bg-p-soft hover:border-p-soft"
+          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-p-ink border-p-border hover:bg-p-soft hover:border-p-soft"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           whileHover={{ rotate: 3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -89,7 +89,7 @@ export default function Hero() {
         </motion.a>
         <motion.a
           href="#work"
-          className="inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-p-ink border-p-border hover:bg-p-soft hover:border-p-soft"
+          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-p-ink border-p-border hover:bg-p-soft hover:border-p-soft"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
           whileHover={{ rotate: 3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}

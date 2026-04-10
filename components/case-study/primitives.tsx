@@ -5,11 +5,11 @@ import { useReveal } from "@/hooks/useReveal";
 export function SectionHeader({ num, title }: { num: string; title: string }) {
   return (
     <div className="flex items-baseline gap-4 mb-8">
-      <span className="text-[0.72rem] tracking-[0.1em] text-[var(--p-accent)] shrink-0">
+      <span className="text-xs tracking-[0.1em] text-[var(--p-accent)] shrink-0">
         [ {num} ]
       </span>
       <h2
-        className="text-[clamp(1.4rem,2.5vw,1.9rem)] font-[400] tracking-[-0.02em] leading-tight"
+        className="text-heading font-[400] tracking-[-0.02em] leading-tight"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {title}
@@ -21,7 +21,7 @@ export function SectionHeader({ num, title }: { num: string; title: string }) {
 export function BodyText({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="text-[0.97rem] leading-[1.85] text-[#555550] mb-5 last:mb-0"
+      className="text-base leading-[1.85] text-[#555550] mb-5 last:mb-0"
       style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
     >
       {children}
@@ -36,14 +36,14 @@ export function QuoteBlock({ quote, cite }: { quote: string; cite?: string }) {
       style={{ background: "color-mix(in srgb, var(--p-accent) 6%, transparent)" }}
     >
       <p
-        className="text-[0.92rem] leading-[1.75] text-[#555550] italic"
+        className="text-base leading-[1.75] text-[#555550] italic"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {quote}
       </p>
       {cite && (
         <cite
-          className="block mt-2 text-[0.72rem] tracking-[0.08em] uppercase text-[var(--p-muted)] not-italic"
+          className="block mt-2 text-xs tracking-[0.08em] uppercase text-[var(--p-muted)] not-italic"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           {cite}
@@ -63,8 +63,8 @@ export function NdaBanner() {
         fontFamily: "var(--font-almarai), system-ui, sans-serif",
       }}
     >
-      <span className="text-[0.8rem] mt-[1px] shrink-0">⚠</span>
-      <p className="text-[0.78rem] leading-[1.6] text-[var(--p-muted)]">
+      <span className="text-sm mt-[1px] shrink-0">⚠</span>
+      <p className="text-sm leading-[1.6] text-[var(--p-muted)]">
         Some visuals in this case study have been adapted to comply with NDA restrictions.
       </p>
     </div>
@@ -75,7 +75,7 @@ export function HmwCallout({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-10 py-8 px-6 text-center">
       <p
-        className="text-[clamp(1.1rem,2.2vw,1.5rem)] font-[400] tracking-[-0.02em] leading-[1.5] text-[var(--p-ink)] italic max-w-[640px] mx-auto"
+        className="text-heading font-[400] tracking-[-0.02em] leading-[1.5] text-[var(--p-ink)] italic max-w-[640px] mx-auto"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {children}
@@ -98,7 +98,7 @@ export function InsightCard({ label, text }: { label: string; text: string }) {
       }}
     >
       <div
-        className="text-[0.65rem] tracking-[0.14em] uppercase mb-2"
+        className="text-xs tracking-[0.14em] uppercase mb-2"
         style={{
           fontFamily: "var(--font-almarai), system-ui, sans-serif",
           color: isOpportunity ? "color-mix(in srgb, var(--p-accent) 80%, #333)" : "var(--p-muted)",
@@ -107,7 +107,7 @@ export function InsightCard({ label, text }: { label: string; text: string }) {
         {label}
       </div>
       <p
-        className="text-[0.85rem] leading-[1.65] text-[var(--p-ink)]"
+        className="text-sm leading-[1.65] text-[var(--p-ink)]"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {text}
@@ -133,20 +133,20 @@ export function ProcessStep({
       style={{ gridTemplateColumns: "2.5rem 1fr" }}
     >
       <span
-        className="text-[0.72rem] text-[var(--p-accent)] font-[400] tracking-[0.06em] mt-0.5"
+        className="text-xs text-[var(--p-accent)] font-[400] tracking-[0.06em] mt-0.5"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {num}
       </span>
       <div>
         <h4
-          className="text-[0.92rem] font-[400] text-[var(--p-ink)] mb-1"
+          className="text-base font-[400] text-[var(--p-ink)] mb-1"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           {title}
         </h4>
         <p
-          className="text-[0.82rem] text-[var(--p-muted)] leading-[1.65]"
+          className="text-sm text-[var(--p-muted)] leading-[1.65]"
           style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
         >
           {body}
@@ -166,7 +166,7 @@ export function OutcomeCell({ num, label }: { num: string; label: string }) {
         {num}
       </div>
       <div
-        className="text-[0.78rem] text-[var(--p-muted)] mt-1.5 leading-[1.5]"
+        className="text-sm text-[var(--p-muted)] mt-1.5 leading-[1.5]"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {label}
@@ -183,7 +183,7 @@ export function ImgPlaceholder({ caption }: { caption: string }) {
         style={{ background: "#1a1a2e", aspectRatio: "16/7" }}
       />
       <p
-        className="text-[0.72rem] text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
+        className="text-xs text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {caption}

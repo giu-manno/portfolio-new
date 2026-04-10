@@ -12,7 +12,7 @@ function SectionLabel({ text }: { text: string }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex items-center gap-[0.6rem] text-[0.72rem] font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
+      className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
       style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
     >
       <span className={`section-label-line${visible ? " visible" : ""}`} />
@@ -39,7 +39,7 @@ export default function Experience() {
             className={`reveal flex flex-col gap-4 max-sm:col-span-full ${leftVis ? "visible" : ""}`}
           >
             <p
-              className="text-[0.85rem] text-p-muted leading-[1.7]"
+              className="text-sm text-p-muted leading-[1.7]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {exp.blurb[lang]}
@@ -47,7 +47,7 @@ export default function Experience() {
             <a
               href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
               download
-              className="self-start inline-flex items-center gap-2 text-[0.82rem] font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-all duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
+              className="self-start inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-all duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {exp.downloadCV[lang]}
@@ -85,19 +85,19 @@ export default function Experience() {
                 {/* Body */}
                 <div>
                   <div
-                    className="text-[0.95rem] font-[400] tracking-[-0.01em] text-p-ink"
+                    className="text-base font-[400] tracking-[-0.01em] text-p-ink"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.company[lang]}
                   </div>
                   <div
-                    className="text-[0.82rem] text-p-muted mt-[0.1rem]"
+                    className="text-sm text-p-muted mt-[0.1rem]"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.role[lang]}
                   </div>
                   <p
-                    className="text-[0.82rem] leading-[1.65] text-[#666662] mt-[0.6rem]"
+                    className="text-sm leading-[1.65] text-[#666662] mt-[0.6rem]"
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     {item.desc[lang]}
@@ -106,7 +106,7 @@ export default function Experience() {
 
                 {/* Period */}
                 <div
-                  className="text-[0.75rem] text-p-muted whitespace-nowrap mt-[0.15rem] max-sm:hidden"
+                  className="text-sm text-p-muted whitespace-nowrap mt-[0.15rem] max-sm:hidden"
                   style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                 >
                   {item.period[lang]}
