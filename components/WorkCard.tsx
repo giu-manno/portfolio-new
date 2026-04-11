@@ -117,7 +117,7 @@ export default function WorkCard({
             alt={title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-            className="object-cover object-top"
+            className="object-cover object-center"
           />
         ) : (
           <div className="w-full h-full bg-white/10" />

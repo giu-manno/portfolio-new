@@ -19,6 +19,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import adesWireframes from "@/public/ades-casestudy-images/ades-wireframes.webp";
 import adesShowcase from "@/public/ades-casestudy-images/ades-showcase.webp";
+import adesHomepageCard from "@/public/ades-casestudy-images/ades-homepage-card.webp";
 import adesOverviewNew from "@/public/ades-casestudy-images/ades-overview-new.webp";
 import adesUsertest1 from "@/public/ades-casestudy-images/ades-usertest-1.webp";
 import adesUsertest2 from "@/public/ades-casestudy-images/ades-usertest-2.webp";
@@ -80,7 +81,7 @@ export default function AdesCaseStudy() {
   return (
     <CaseStudyLayout
       heroGradient={`linear-gradient(135deg, ${from} 0%, ${to} 100%)`}
-      heroImage={adesShowcase}
+      heroImage={adesHomepageCard}
       accentColor={accent}
       eyebrow="Case Study · LabSEC / UFSC"
       title="Ades"

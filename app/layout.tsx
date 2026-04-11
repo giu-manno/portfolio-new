@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} h-full antialiased overflow-x-hidden`}>
+    <html lang="en" className={`${GeistSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LanguageProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          <SmoothScroll>
+            <div style={{ overflowX: "clip" }}>{children}</div>
+          </SmoothScroll>
         </LanguageProvider>
       </body>
     </html>

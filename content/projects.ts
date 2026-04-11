@@ -20,6 +20,7 @@ export const projects: Project[] = [
     href:     "/work/suite4energy",
     // Manually set — run `node scripts/extract-palette.mjs` once images are added
     gradient:  "linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%)",
+    image:     "/s4e-casestudy-images/s4e-homepage-cover.webp",
     chipColor: "oklch(48.8% 0.243 264.376)",
     // password: "key",  // TODO: re-enable when password gate is ready
   },
@@ -29,7 +30,7 @@ export const projects: Project[] = [
     year:     "2023",
     href:     "/work/ades",
     gradient:  `linear-gradient(135deg, ${palettes.ades.from} 0%, ${palettes.ades.to} 100%)`,
-    image:     "/ades-casestudy-images/ades-showcase.webp",
+    image:     "/ades-casestudy-images/ades-homepage-card.webp",
     chipColor: "oklch(69.6% 0.17 162.48)",
   },
 ];

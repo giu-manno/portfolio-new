@@ -1,6 +1,12 @@
 "use client";
 
 import CaseStudyLayout from "@/components/CaseStudyLayout";
+import { CaseStudyImage } from "@/components/case-study/CaseStudyImage";
+import s4eCloseup       from "@/public/s4e-casestudy-images/s4e-closeup.webp";
+import s4eSitemap       from "@/public/s4e-casestudy-images/s4e-sitemap.webp";
+import s4eWireframes    from "@/public/s4e-casestudy-images/s4e-wireframes.jpg";
+import s4eMediumfi      from "@/public/s4e-casestudy-images/s4e-mediumfi.webp";
+import s4eScreens       from "@/public/s4e-casestudy-images/s4e-screens.webp";
 import {
   SectionHeader,
   BodyText,
@@ -8,7 +14,6 @@ import {
   InsightCard,
   ProcessStep,
   OutcomeCell,
-  ImgPlaceholder,
   RevealSection,
   NdaBanner,
   HmwCallout,
@@ -38,6 +43,7 @@ export default function Suite4EnergyCaseStudy() {
   return (
     <CaseStudyLayout
       heroGradient={HERO_GRADIENT}
+      heroImage={s4eCloseup}
       accentColor={ACCENT_COLOR}
       eyebrow="Case Study · Norus"
       title="Suite 4 Energy"
@@ -128,7 +134,11 @@ export default function Suite4EnergyCaseStudy() {
           complexity we were working with — and where the real design problem
           lived. The challenge wasn't styling; it was structural.
         </BodyText>
-        <ImgPlaceholder caption="Information architecture mapping across all suite products — surfacing shared flows and app-specific navigation trees" />
+        <CaseStudyImage
+          src={s4eSitemap}
+          alt="Information architecture mapping across all suite products"
+          caption="Information architecture mapping across all suite products — surfacing shared flows and app-specific navigation trees"
+        />
       </RevealSection>
 
       {/* 04 Wireframes */}
@@ -169,7 +179,11 @@ export default function Suite4EnergyCaseStudy() {
             body="Tested layouts internally and with stakeholders before moving to mid-fidelity."
           />
         </div>
-        <ImgPlaceholder caption="Wireframe explorations — reusable layout templates and suite navigation concepts" />
+        <CaseStudyImage
+          src={s4eWireframes}
+          alt="Wireframe explorations — reusable layout templates and suite navigation concepts"
+          caption="Wireframe explorations — reusable layout templates and suite navigation concepts"
+        />
       </RevealSection>
 
       {/* 05 Navigation System */}
@@ -195,7 +209,11 @@ export default function Suite4EnergyCaseStudy() {
           clear path out.
         </BodyText>
         <QuoteBlock quote='"The secondary sidebar appeared the moment an app was accessed — overlaying the suite sidebar, preserving access to both layers simultaneously."' />
-        <ImgPlaceholder caption="Mid-fidelity screens — nested sidebar with per-app color schemes and dual-layer navigation" />
+        <CaseStudyImage
+          src={s4eMediumfi}
+          alt="Mid-fidelity screens — nested sidebar with per-app color schemes and dual-layer navigation"
+          caption="Mid-fidelity screens — nested sidebar with per-app color schemes and dual-layer navigation"
+        />
       </RevealSection>
 
       {/* 06 Design System */}
@@ -228,6 +246,11 @@ export default function Suite4EnergyCaseStudy() {
       {/* 07 Outcomes */}
       <RevealSection id="s-outcomes">
         <SectionHeader num="07" title="Outcomes" />
+        <CaseStudyImage
+          src={s4eScreens}
+          alt="Final mid-fidelity screens across the Suite 4 Energy platform"
+          caption="Final mid-fidelity screens across the Suite 4 Energy platform"
+        />
         <div
           className="grid my-6 border border-[var(--p-border)] rounded-[10px] overflow-hidden"
           style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--p-border)" }}
