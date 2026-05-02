@@ -38,6 +38,18 @@ export const translations = {
         period: { en: "Jun/25 — Present", pt: "Jun/25 — Atual" },
       },
       {
+        logo: "RNP",
+        logoSrc: "/rnp-icon.svg",
+        logoClass: "bg-blue-50 text-blue-600",
+        company: { en: "RNP PD&I Program - 2025 cycle", pt: "Programa PD&I RNP - ciclo 2025" },
+        role:    { en: "Product Designer", pt: "Product Designer" },
+        desc: {
+          en: "As a member of one of the work groups for RNP's Research, Development and Innovation Program (2025/2026), I was responsible for the end-to-end product experience of the new national academic identity federation (CAFe).",
+          pt: "Como membro de um dos grupos de trabalho do Programa de Pesquisa, Desenvolvimento e Inovação da RNP (2025/2026), fui responsável pela experiência de produto end-to-end da nova federação nacional de identidade acadêmica (CAFe).",
+        },
+        period: { en: "Jul/2025 — Jun/2026", pt: "Jul/2025 — Jun/2026" },
+      },
+      {
         logo: "N",
         logoSrc: "/norus-icon.svg",
         logoClass: "bg-green-50 text-green-600",
@@ -48,18 +60,6 @@ export const translations = {
           pt: "Construiu um design system escalável do zero e atuou como principal parceira de design em squad multifuncional, do discovery à entrega.",
         },
         period: { en: "Mar/24 — Jun/25", pt: "Mar/24 — Jun/25" },
-      },
-      {
-        logo: "RNP",
-        logoSrc: "/rnp-icon.svg",
-        logoClass: "bg-blue-50 text-blue-600",
-        company: { en: "National Research Network (RNP)", pt: "Rede Nacional de Pesquisa (RNP)" },
-        role:    { en: "Product Designer", pt: "Product Designer" },
-        desc: {
-          en: "Designed the end-to-end product experience for the technological modernization of CAFe, Brazil's national academic identity federation.",
-          pt: "Projetou a experiência de produto end-to-end para a modernização tecnológica do CAFe, a federação nacional de identidade acadêmica do Brasil.",
-        },
-        period: { en: "Jul/25 — Present", pt: "Jul/25 — Presente" },
       },
       {
         logo: "Si",
