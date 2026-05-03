@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { LanguageProvider } from "@/context/LanguageContext";
-import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,9 +18,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LanguageProvider>
-          <SmoothScroll>
-            <div style={{ overflowX: "clip" }}>{children}</div>
-          </SmoothScroll>
+          <div style={{ overflowX: "clip" }}>{children}</div>
         </LanguageProvider>
       </body>
     </html>
