@@ -151,6 +151,48 @@
 .hero-item-2 { animation-delay: 0.15s; }
 .hero-item-3 { animation-delay: 0.3s; }
 
+/* ─── Pixel hero (sky panel) ─── */
+@keyframes pixelDrift {
+  from { transform: translateX(-260px); }
+  to   { transform: translateX(calc(100vw + 260px)); }
+}
+@keyframes pixelFlap {
+  0%, 49%   { transform: translateX(0); }
+  50%, 100% { transform: translateX(-50%); }
+}
+@keyframes pixelTwinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pixel-sky-anim { animation: none !important; }
+}
+@media (max-width: 720px) {
+  .pixel-hero-clock {
+    right: 50% !important;
+    transform: translate(50%, -50%) !important;
+    align-items: center;
+    text-align: center;
+  }
+  .pixel-hero-clock > div { align-self: center !important; }
+}
+.pixel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--p-border);
+  border-radius: 8px;
+  color: var(--p-ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-family: var(--font-geist-pixel), "Doto", monospace;
+  transition: background-color 0.15s ease;
+}
+.pixel-chip:hover {
+  background: var(--p-soft);
+}
+
 /* ─── Scroll reveal (CSS + IntersectionObserver) ─── */
 .reveal {
   opacity: 0;
@@ -190,16 +232,3 @@
   transition: padding-left 0.3s cubic-bezier(0.23,1,0.32,1);
 }
 .exp-item:hover { padding-left: 0.5rem; }
-
-
-/* ─── Section label animated line ─── */
-.section-label-line {
-  width: 0px;
-  height: 1.5px;
-  background: var(--p-muted);
-  flex-shrink: 0;
-  transition: width 0.6s cubic-bezier(0.23,1,0.32,1);
-}
-.section-label-line.visible {
-  width: 20px;
-}

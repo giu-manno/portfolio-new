@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 import { projects } from "@/content/projects";
@@ -15,20 +14,6 @@ function chunk<T>(arr: T[], n: number): T[][] {
 
 export default function Work() {
   const { lang } = useLanguage();
-  const labelRef = useRef<HTMLDivElement>(null);
-  const lineRef  = useRef<HTMLSpanElement>(null);
-  const [lineVisible, setLineVisible] = useState(false);
-
-  useEffect(() => {
-    const el = labelRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setLineVisible(true); io.disconnect(); } },
-      { threshold: 0.08 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   const groups = chunk(projects, 3);
 
@@ -37,11 +22,9 @@ export default function Work() {
       <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
-          ref={labelRef}
-          className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
-          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+          className="text-xs font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+          style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
         >
-          <span ref={lineRef} className={`section-label-line${lineVisible ? " visible" : ""}`} />
           {t.work.label[lang]}
         </div>
 

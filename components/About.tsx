@@ -7,7 +7,6 @@ import { translations as t } from "@/lib/translations";
 export default function About() {
   const { lang } = useLanguage();
   const ab = t.about;
-  const { ref: labelRef, visible: labelVis } = useReveal();
   const { ref: textRef, visible: textVis } = useReveal();
   const { ref: sideRef, visible: sideVis } = useReveal();
 
@@ -16,11 +15,9 @@ export default function About() {
       <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
-          ref={labelRef as React.RefObject<HTMLDivElement>}
-          className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
-          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+          className="text-xs font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+          style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
         >
-          <span className={`section-label-line${labelVis ? " visible" : ""}`} />
           {ab.label[lang]}
         </div>
 

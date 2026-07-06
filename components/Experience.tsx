@@ -8,14 +8,11 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 
 function SectionLabel({ text }: { text: string }) {
-  const { ref, visible } = useReveal();
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
-      style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+      className="text-xs font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+      style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
     >
-      <span className={`section-label-line${visible ? " visible" : ""}`} />
       {text}
     </div>
   );
