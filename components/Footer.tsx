@@ -18,6 +18,19 @@ export default function Footer() {
         className="text-xs text-white/30"
         style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
+        <a
+          href="https://www.streamlinehq.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-white/30 hover:text-white/60 hover:underline underline-offset-4 transition-colors duration-150"
+        >
+          {t.footer.credit[lang]}
+        </a>
+      </p>
+      <p
+        className="text-xs text-white/30"
+        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+      >
         {t.footer.tagline[lang]}
       </p>
       </div>

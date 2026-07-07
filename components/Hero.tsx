@@ -87,7 +87,7 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
   }, [palette.accent]);
 
   return (
-    <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] pt-6 pb-10 max-sm:px-5 max-sm:pt-3 max-sm:pb-8">
+    <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] pt-6 pb-12 max-sm:px-5 max-sm:pt-3 max-sm:pb-8">
       {/* ─── Sky panel ─── */}
       <div
         className="hero-item hero-item-1 relative overflow-hidden rounded-[4px]"
@@ -96,6 +96,19 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
           background: `linear-gradient(to bottom, ${palette.skyBands[0]} 0%, ${palette.skyBands[0]} 30%, ${palette.skyBands[1]} 30%, ${palette.skyBands[1]} 55%, ${palette.skyBands[2]} 55%, ${palette.skyBands[2]} 78%, ${palette.skyBands[3]} 78%, ${palette.skyBands[3]} 100%)`,
         }}
       >
+        {/* Dithered sky bands — canvas sprite over the CSS-gradient fallback */}
+        {sprites && (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${sprites.sky})`,
+              backgroundSize: "20px 380px",
+              backgroundRepeat: "repeat-x",
+              imageRendering: "pixelated",
+            }}
+          />
+        )}
+
         {/* Sky texture squares */}
         {SKY_TEX.map((q, i) => (
           <div
@@ -184,13 +197,13 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
 
         {/* clock */}
         <div
-          className="pixel-hero-clock absolute right-[4%] top-[44%] -translate-y-1/2 flex flex-col gap-2 opacity-75 z-[5]"
+          className="pixel-hero-clock absolute right-[4%] top-[44%] -translate-y-1/2 flex flex-col items-end gap-2 opacity-85 z-[5]"
           style={{ color: palette.skyText, mixBlendMode: "luminosity", fontFamily: pixelFont }}
         >
-          <div className="self-end font-bold text-[17px] tracking-[1px] opacity-85">(GMT-3)</div>
+          <div className="font-bold text-[17px] tracking-[1px] opacity-85">(GMT-3)</div>
           <div
             className="flex items-baseline font-medium leading-[0.9] tracking-[2px]"
-            style={{ fontSize: "clamp(56px, 7vw, 96px)" }}
+            style={{ fontSize: "clamp(64px, 12vw, 96px)" }}
           >
             {mounted ? (
               <>
@@ -209,49 +222,50 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
             )}
           </div>
           {timeOfDay === "auto" && mounted && (
-            <div className="self-end font-bold text-[14px] tracking-[1px] opacity-80">
+            <div className="font-bold text-[14px] tracking-[1px] opacity-80">
               {t.hero.clock[period][lang]}
             </div>
           )}
         </div>
       </div>
 
-      {/* ─── Name + bio ─── */}
-      <div className="flex justify-between items-start gap-10 flex-wrap pt-11">
-        <div className="hero-item hero-item-2 flex flex-col gap-[18px]">
-          <h1
-            className="m-0 font-normal leading-none tracking-[-0.01em] text-p-ink"
-            style={{ fontFamily: serifFont, fontSize: "clamp(48px, 5.5vw, 72px)" }}
-          >
-            Giulia Manno
-          </h1>
-          <div className="flex gap-2 flex-wrap">
-            <a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pixel-chip"
-            >
-              <span className="text-[14px] leading-none">&#8595;</span>
-              <span>{t.experience.downloadCV[lang].toLowerCase()}</span>
-            </a>
-            <a href="mailto:mannogiu@gmail.com" className="pixel-chip">
-              <span>{t.hero.contact[lang].toLowerCase()}</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/giulia-manno-88681a144/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pixel-chip"
-            >
-              <span>linkedin</span>
-              <span className="text-[14px] leading-none">&#8599;</span>
-            </a>
-          </div>
-        </div>
-        <p className="hero-item hero-item-3 mt-1.5 mb-0 max-w-[420px] text-base leading-normal text-[#555550]">
+      {/* ─── Name + bio ───
+          Mobile: name / chips / bio stacked.
+          Intermediate (sm–lg): name + bio share the top row, chips below.
+          Desktop (lg+): name above chips on the left, bio on the right. */}
+      <div className="pt-11 grid grid-cols-1 items-start gap-x-10 gap-y-[18px] sm:grid-cols-[auto_minmax(0,420px)] sm:justify-between">
+        <h1
+          className="hero-item hero-item-2 m-0 font-normal leading-none tracking-[-0.01em] text-p-ink sm:col-start-1 sm:row-start-1"
+          style={{ fontFamily: serifFont, fontSize: "clamp(48px, 5.5vw, 72px)" }}
+        >
+          Giulia Manno
+        </h1>
+        <p className="hero-item hero-item-3 order-3 sm:order-none m-0 sm:mt-1.5 max-w-[420px] text-base leading-normal text-[#555550] sm:col-start-2 sm:row-start-1 lg:row-span-2">
           {t.hero.desc[lang]}
         </p>
+        <div className="hero-item hero-item-2 order-2 sm:order-none flex gap-2 flex-wrap sm:col-span-2 sm:row-start-2 lg:col-span-1 lg:col-start-1">
+          <a
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pixel-chip"
+          >
+            <span className="text-[14px] leading-none">&#8595;</span>
+            <span>{t.experience.downloadCV[lang].toLowerCase()}</span>
+          </a>
+          <a href="mailto:mannogiu@gmail.com" className="pixel-chip">
+            <span>{t.hero.contact[lang].toLowerCase()}</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/giulia-manno-88681a144/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pixel-chip"
+          >
+            <span>linkedin</span>
+            <span className="text-[14px] leading-none">&#8599;</span>
+          </a>
+        </div>
       </div>
     </div>
   );

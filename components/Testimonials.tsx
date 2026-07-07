@@ -1,14 +1,108 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 import { testimonials } from "@/content/testimonials";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const pixelFont = "var(--font-geist-pixel), 'Doto', monospace";
 const serifFont = "var(--font-instrument-serif), Georgia, serif";
+
+/* ── Pixel flower garden ─────────────────────────────────────────────
+   Decorative row below the testimonial card. Each flower is a tiny
+   letter-grid rendered as SVG rects (crispEdges), like the nav flags. */
+
+const STEM = { S: "#4e7d68", L: "#6fa083" };
+
+const FLOWER_GRIDS = {
+  tulip: [
+    ".P.P.",
+    "PPPPP",
+    ".PPP.",
+    "..S..",
+    "..S.L",
+    "L.SL.",
+    "LLS..",
+    "..S..",
+  ],
+  daisy: [
+    "..W..",
+    ".WYW.",
+    "..W..",
+    "..S..",
+    "..SL.",
+    ".LS..",
+    "..S..",
+  ],
+  lavender: [
+    ".B.",
+    "BbB",
+    "bBb",
+    "BbB",
+    ".b.",
+    ".S.",
+    "LS.",
+    ".S.",
+  ],
+  sunflower: [
+    ".YYY.",
+    "YYDYY",
+    ".YYY.",
+    "..S..",
+    "..S.L",
+    ".LS..",
+    "..S..",
+  ],
+  mini: [
+    ".p.",
+    "pcp",
+    ".p.",
+    ".S.",
+    ".S.",
+  ],
+  bud: [
+    ".B.",
+    ".B.",
+    ".S.",
+    "LS.",
+    ".S.",
+  ],
+} as const;
+
+// The garden row: grid + petal colors + pixel cell size (px)
+const GARDEN: { grid: readonly string[]; colors: Record<string, string>; cell: number }[] = [
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 4 },
+  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#e5798f" }, cell: 5 },
+  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#a5b8e8", Y: "#f2c94c" }, cell: 5 },
+  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#e0608a" }, cell: 4 },
+  { grid: FLOWER_GRIDS.lavender, colors: { ...STEM, B: "#7d9bd9", b: "#a5b8e8" }, cell: 5 },
+  { grid: FLOWER_GRIDS.sunflower, colors: { ...STEM, Y: "#f0c245", D: "#6b4a3a" }, cell: 5 },
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#f2a68c", c: "#e0608a" }, cell: 4 },
+  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#b195d6" }, cell: 5 },
+  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#f2b8c6", Y: "#f2c94c" }, cell: 5 },
+  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#7d9bd9" }, cell: 4 },
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 4 },
+];
+
+function PixelFlower({ grid, colors, cell }: (typeof GARDEN)[number]) {
+  const h = grid.length;
+  const w = grid[0].length;
+  return (
+    <svg
+      width={w * cell}
+      height={h * cell}
+      viewBox={`0 0 ${w} ${h}`}
+      shapeRendering="crispEdges"
+      aria-hidden="true"
+    >
+      {grid.flatMap((row, y) =>
+        [...row].map((ch, x) =>
+          colors[ch] ? <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={colors[ch]} /> : null
+        )
+      )}
+    </svg>
+  );
+}
 
 function PixelArrow({ direction }: { direction: "prev" | "next" }) {
   // Pixel-art chevrons from the design file, drawn as SVG rects
@@ -33,7 +127,7 @@ export default function Testimonials() {
   const current = testimonials[index];
 
   return (
-    <section id="testimonials" className="py-20 border-t border-p-border max-sm:py-14">
+    <section id="testimonials" className="py-16 max-sm:py-12">
       <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
@@ -59,10 +153,35 @@ export default function Testimonials() {
             <PixelArrow direction="prev" />
           </button>
 
-          <div className="w-[min(560px,70vw)] border border-p-ink rounded-[4px] pt-7 px-[30px] pb-6 flex flex-col gap-[26px]">
+          <div className="relative w-[min(560px,70vw)] border-2 border-p-ink bg-[#fffefb] pt-7 px-[30px] pb-6 flex flex-col gap-[26px]">
+            {/* Serrated stamp teeth on all four edges */}
+            <div
+              aria-hidden="true"
+              className="absolute -top-[6px] left-0 right-0 h-[6px]"
+              style={{ background: "repeating-linear-gradient(90deg, var(--p-ink) 0 6px, transparent 6px 14px)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-[6px] left-0 right-0 h-[6px]"
+              style={{ background: "repeating-linear-gradient(90deg, var(--p-ink) 0 6px, transparent 6px 14px)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -left-[6px] top-0 bottom-0 w-[6px]"
+              style={{ background: "repeating-linear-gradient(0deg, var(--p-ink) 0 6px, transparent 6px 14px)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -right-[6px] top-0 bottom-0 w-[6px]"
+              style={{ background: "repeating-linear-gradient(0deg, var(--p-ink) 0 6px, transparent 6px 14px)" }}
+            />
+
             <p className="m-0 text-[15px] leading-[1.55] text-p-ink">{current.quote}</p>
             <div className="flex items-center gap-[18px]">
-              <Image src={`${basePath}/pixel-icons/stamp.svg`} alt="" width={30} height={30} />
+              {/* Mini flower postage stamp */}
+              <div aria-hidden="true" className="border border-dashed border-p-ink px-1.5 py-1">
+                <PixelFlower grid={FLOWER_GRIDS.tulip} colors={{ ...STEM, P: "#e5798f" }} cell={3} />
+              </div>
               <div className="flex-1 h-px bg-p-ink" />
               <div className="italic text-[20px] text-p-ink" style={{ fontFamily: serifFont }}>
                 {current.name}
@@ -77,6 +196,13 @@ export default function Testimonials() {
           >
             <PixelArrow direction="next" />
           </button>
+        </div>
+
+        {/* Flower garden */}
+        <div className="mt-14 flex justify-center items-end gap-8 max-sm:gap-5 flex-wrap" aria-hidden="true">
+          {GARDEN.map((f, i) => (
+            <PixelFlower key={i} {...f} />
+          ))}
         </div>
       </div>
     </section>

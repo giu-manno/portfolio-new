@@ -142,6 +142,7 @@ export const translations = {
   footer: {
     copy:     { en: "Giulia Manno Lima - 2026",               pt: "Giulia Manno Lima - 2026" },
     tagline:  { en: "Product Designer · Florianópolis, Brazil", pt: "Product Designer · Florianópolis, Brasil" },
+    credit:   { en: "pixel icons by Streamline", pt: "ícones pixel por Streamline" },
   },
 } as const;
 

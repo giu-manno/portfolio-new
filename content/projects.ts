@@ -12,6 +12,8 @@ export interface Project {
   /** Pop-out hover pair: pixel background + screen cutout. Overrides `image` when both set. */
   bg?:       string;
   screen?:   string;
+  /** Second screen cutout — renders the staggered dual-phone pop layout. */
+  screen2?:  string;
   /** Keywords for the hover marquee behind the lifted screen (pop cards only). */
   keywords?: string[];
 }
@@ -40,5 +42,9 @@ export const projects: Project[] = [
     href:     "/work/ades",
     gradient:  `linear-gradient(135deg, ${palettes.ades.from} 0%, ${palettes.ades.to} 100%)`,
     image:     "/ades-casestudy-images/ades-homepage-card.webp",
+    bg:        "/homepageades/ades-pop-bg.svg",
+    screen:    "/homepageades/ades-pop-screen-1.svg",
+    screen2:   "/homepageades/ades-pop-screen-2.svg",
+    keywords:  ["Mobile App", "Product Design", "User Research", "Digital Signatures", "Prototyping"],
   },
 ];

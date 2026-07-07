@@ -9,7 +9,7 @@ export default function Work() {
   const { lang } = useLanguage();
 
   return (
-    <section id="work" className="py-20 border-t border-p-border max-sm:py-14">
+    <section id="work" className="py-16 max-sm:py-12">
       <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
@@ -34,6 +34,7 @@ export default function Work() {
               image={p.image}
               bg={p.bg}
               screen={p.screen}
+              screen2={p.screen2}
               keywords={p.keywords}
               delay={(i + 1) * 0.1}
             />

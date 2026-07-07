@@ -55,7 +55,7 @@ export default function Nav() {
           <span>giulia manno</span>
         </a>
 
-        <div className="flex items-center gap-11 max-[900px]:gap-6">
+        <div className="flex items-center gap-11">
           {[
             { href: "#work", icon: "arcade", label: t.nav.projects[lang] },
             { href: "#about", icon: "notepad", label: t.nav.aboutMe[lang] },
@@ -64,7 +64,7 @@ export default function Nav() {
             <a
               key={href}
               href={href}
-              className="hidden sm:flex items-center gap-2.5 text-[15px] text-p-ink no-underline hover:underline underline-offset-4 decoration-2 decoration-[var(--p-accent)]"
+              className="hidden min-[900px]:flex items-center gap-2.5 text-[15px] text-p-ink no-underline hover:underline underline-offset-4 decoration-2 decoration-[var(--p-accent)]"
             >
               <Image src={`${basePath}/pixel-icons/${icon}.svg`} alt="" width={22} height={22} priority />
               <span>{label}</span>

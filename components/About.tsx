@@ -8,7 +8,7 @@ export default function About() {
   const ab = t.about;
 
   return (
-    <section id="about" className="py-20 border-t border-p-border max-sm:py-14">
+    <section id="about" className="py-16 max-sm:py-12">
       <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div

@@ -18,9 +18,9 @@ export const PALETTES: Record<
     accent: string; // page-wide accent (selection, hover underlines) — dark enough for cream bg
   }
 > = {
-  dawn:   { sky: "#c3a8d8", skyText: "#ffffff", skyBands: ["#a98bc6", "#c3a8d8", "#d8c2e4", "#ebd8e6"], cloudW: "#fdf6e6", cloudS: "#e0c7e6", sunX: "#ffd9a0", sunH: "#ffedd0", sunR: "#f2a65a", grassH: "#9ed07e", grassL: "#6fae57", grassM: "#3f8449", grassD: "#27573a", sparkle: "#f6e3b2", accent: "#8a5fb0" },
-  day:    { sky: "#8faae9", skyText: "#ffffff", skyBands: ["#6f92e4", "#8faae9", "#aabff0", "#c6d4f6"], cloudW: "#fffdf4", cloudS: "#cfe3f7", sunX: "#ffe259", sunH: "#fff3ae", sunR: "#f5b93d", grassH: "#b9e37e", grassL: "#86c85a", grassM: "#479c52", grassD: "#2c6b43", sparkle: "#f2dfae", accent: "#4661b8" },
-  sunset: { sky: "#e5a184", skyText: "#ffffff", skyBands: ["#c47a75", "#e5a184", "#f0b993", "#f9d2a6"], cloudW: "#fdf2dc", cloudS: "#eec0a8", sunX: "#ff9d5c", sunH: "#ffc98f", sunR: "#e8763a", grassH: "#b3c273", grassL: "#6fa04f", grassM: "#3d7a44", grassD: "#265237", sparkle: "#fae6b4", accent: "#d4622c" },
+  dawn:   { sky: "#c3a8d8", skyText: "#443a58", skyBands: ["#a98bc6", "#c3a8d8", "#d8c2e4", "#ebd8e6"], cloudW: "#fdf6e6", cloudS: "#e0c7e6", sunX: "#ffd9a0", sunH: "#ffedd0", sunR: "#f2a65a", grassH: "#9ed07e", grassL: "#6fae57", grassM: "#3f8449", grassD: "#27573a", sparkle: "#f6e3b2", accent: "#8a5fb0" },
+  day:    { sky: "#8faae9", skyText: "#26355e", skyBands: ["#6f92e4", "#8faae9", "#aabff0", "#c6d4f6"], cloudW: "#fffdf4", cloudS: "#cfe3f7", sunX: "#ffe259", sunH: "#fff3ae", sunR: "#f5b93d", grassH: "#b9e37e", grassL: "#86c85a", grassM: "#479c52", grassD: "#2c6b43", sparkle: "#f2dfae", accent: "#4661b8" },
+  sunset: { sky: "#e5a184", skyText: "#4d2f24", skyBands: ["#c47a75", "#e5a184", "#f0b993", "#f9d2a6"], cloudW: "#fdf2dc", cloudS: "#eec0a8", sunX: "#ff9d5c", sunH: "#ffc98f", sunR: "#e8763a", grassH: "#b3c273", grassL: "#6fa04f", grassM: "#3d7a44", grassD: "#265237", sparkle: "#fae6b4", accent: "#d4622c" },
   night:  { sky: "#2b3260", skyText: "#eef0ff", skyBands: ["#1c2242", "#2b3260", "#3c4477", "#4d568e"], cloudW: "#565f9e", cloudS: "#414876", sunX: "#f0eddc", sunH: "#fffef2", sunR: "#c9c4a8", grassH: "#4d7a52", grassL: "#2f5c38", grassM: "#1d4227", grassD: "#122b1a", sparkle: "#ece4bc", accent: "#5a64b0" },
 };
 
@@ -86,6 +86,40 @@ function drawGrid(grid: string[], colorMap: Record<string, string>, scale = 1): 
       ctx.fillRect(x * scale, y * scale, scale, scale);
     }
   });
+  return canvas.toDataURL();
+}
+
+// Banded sky with dithered transitions. Drawn at 1px per cell (2x38), rendered
+// at 10px cells (20x380) — the hero panel is exactly 380px tall. Each band
+// boundary gets a 3-row 25/50/75% checker dither via a 2x2 Bayer matrix,
+// like classic pixel-art skies.
+const SKY_ROWS = 38;
+const SKY_BOUNDS = [11, 21, 30]; // cell rows where bands 1, 2, 3 begin (~30/55/78%)
+const BAYER_2X2 = [
+  [0.125, 0.625],
+  [0.875, 0.375],
+];
+
+function drawSky(p: (typeof PALETTES)[Period]): string {
+  const canvas = document.createElement("canvas");
+  canvas.width = 2;
+  canvas.height = SKY_ROWS;
+  const ctx = canvas.getContext("2d")!;
+  for (let y = 0; y < SKY_ROWS; y++) {
+    let band = 0;
+    while (band < 3 && y >= SKY_BOUNDS[band]) band++;
+    for (let x = 0; x < 2; x++) {
+      let color = p.skyBands[band];
+      if (band < 3) {
+        const d = y - (SKY_BOUNDS[band] - 3); // 0..2 in the dither zone above the boundary
+        if (d >= 0 && (d + 1) * 0.25 > BAYER_2X2[y % 2][x % 2]) {
+          color = p.skyBands[band + 1];
+        }
+      }
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
   return canvas.toDataURL();
 }
 
@@ -164,6 +198,7 @@ export interface SpriteSet {
   b: string;
   c: string;
   sun: string;
+  sky: string;
   grass: string;
   grassSway: string;
 }
@@ -180,6 +215,7 @@ export function getSprites(period: Period): SpriteSet {
     b: drawGrid(CLOUD_GRIDS.b, cloudMap),
     c: drawGrid(CLOUD_GRIDS.c, cloudMap),
     sun: drawGrid(SUN_GRID, { X: p.sunX, H: p.sunH, R: p.sunR }),
+    sky: drawSky(p),
     grass: drawGrass(p),
     grassSway: drawGrass(p, true),
   };

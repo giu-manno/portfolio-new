@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useReveal } from "@/hooks/useReveal";
+import WorkCardPop from "./WorkCardPop";
 
 interface WorkCardProps {
   gradient: string;
@@ -21,6 +22,7 @@ interface WorkCardProps {
   image?: string;
   bg?: string;
   screen?: string;
+  screen2?: string;
   keywords?: string[];
 }
 
@@ -94,6 +96,7 @@ export default function WorkCard({
   image,
   bg,
   screen,
+  screen2,
   keywords,
 }: WorkCardProps) {
   const { ref, visible } = useReveal();
@@ -124,54 +127,26 @@ export default function WorkCard({
     isPop ? "" : "noise-overlay"
   } ${tall ? "min-h-[748px]" : "min-h-[364px]"}`;
   const taglineEl = (
-    <p
-      className="mt-1 italic text-p-ink"
-      style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "20px" }}
-    >
-      {tagline}
-    </p>
+    <div className="mt-1 flex items-baseline justify-between gap-4">
+      <p
+        className="italic text-p-ink"
+        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "20px" }}
+      >
+        {tagline}
+      </p>
+      <span
+        className="text-p-muted whitespace-nowrap"
+        style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace", fontSize: "14px" }}
+      >
+        {title} - {year}
+      </span>
+    </div>
   );
 
   const inner = (
     <>
       {isPop ? (
-        <>
-          {/* Pop layout: the background is a bottom-anchored mask — on hover its top edge
-              drops 20%, cropping the image without squishing it, while the screen rises */}
-          <div className="absolute inset-0 z-[1] rounded-[4px] overflow-hidden transition-[top] duration-300 ease-out group-hover:top-[43%]">
-            <div
-              className="noise-overlay absolute inset-x-0 bottom-0"
-              style={{
-                height: tall ? 748 : 364,
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${bg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-          </div>
-          {/* Keyword marquee — fades in behind the lifted screen on hover */}
-          {keywords && keywords.length > 0 && (
-            <div
-              className="absolute bottom-[calc(57%+6px)] left-0 right-0 z-[1] overflow-hidden pointer-events-none opacity-0 transition-opacity duration-300 delay-150 group-hover:opacity-100"
-              style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
-              aria-hidden="true"
-            >
-              <div className="marquee-track flex w-max gap-14 pr-14">
-                {[...keywords, ...keywords].map((k, i) => (
-                  <span key={i} className="whitespace-nowrap text-[clamp(18px,2.2vw,34px)] text-[#c8c8c4]">
-                    {k}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${screen}`}
-            alt={title}
-            className="absolute top-[18%] left-1/2 -translate-x-1/2 z-[2] w-[60%] max-w-none h-auto rounded-[4px] border border-[#d6d6d2] origin-top transition-transform duration-300 ease-out group-hover:-translate-y-12 group-hover:scale-[1.25]"
-          />
-        </>
+        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} alt={title} tall={tall} keywords={keywords} />
       ) : (
         <>
           {/* Card image / placeholder */}

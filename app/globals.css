@@ -168,6 +168,11 @@
 }
 .marquee-track {
   animation: marqueeScroll 22s linear infinite;
+  /* Only animate while the card is hovered — no compositor work while hidden */
+  animation-play-state: paused;
+}
+.group:hover .marquee-track {
+  animation-play-state: running;
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
@@ -194,6 +199,7 @@
 @media (max-width: 720px) {
   .pixel-hero-clock {
     right: 50% !important;
+    top: 55% !important;
     transform: translate(50%, -50%) !important;
     align-items: center;
     text-align: center;
