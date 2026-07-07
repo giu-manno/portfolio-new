@@ -1,95 +1,82 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { useReveal } from "@/hooks/useReveal";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 
-const WORD_KEYFRAMES = `
-  @keyframes wordExit {
-    0%   { opacity: 1; transform: translateY(0px);   filter: blur(0px); }
-    100% { opacity: 0; transform: translateY(-14px); filter: blur(3px); }
-  }
-  @keyframes wordEnter {
-    0%   { opacity: 0; transform: translateY(14px);  filter: blur(3px); }
-    100% { opacity: 1; transform: translateY(0px);   filter: blur(0px); }
-  }
-`;
+// Sparse pixel star field for the CTA — echoes the hero's pixel sky at night
+const STARS = [
+  { left: "6%", top: "18%", size: 3, dur: "3.2s", delay: "0s" },
+  { left: "13%", top: "62%", size: 2, dur: "2.5s", delay: "-1.1s" },
+  { left: "22%", top: "34%", size: 3, dur: "3.8s", delay: "-2.2s" },
+  { left: "31%", top: "78%", size: 2, dur: "2.9s", delay: "-0.6s" },
+  { left: "43%", top: "12%", size: 2, dur: "3.5s", delay: "-1.8s" },
+  { left: "57%", top: "24%", size: 3, dur: "2.7s", delay: "-0.3s" },
+  { left: "66%", top: "70%", size: 2, dur: "3.1s", delay: "-2.6s" },
+  { left: "74%", top: "40%", size: 3, dur: "2.4s", delay: "-1.4s" },
+  { left: "85%", top: "16%", size: 2, dur: "3.6s", delay: "-0.9s" },
+  { left: "92%", top: "58%", size: 3, dur: "2.8s", delay: "-2.0s" },
+];
+
+const chipEmailStyle = {
+  "--chip-bg": "#ffffff",
+  "--chip-ink": "var(--p-ink)",
+  "--chip-border": "#ffffff",
+  "--chip-hover-bg": "#eeeeee",
+  "--chip-hover-border": "#eeeeee",
+} as React.CSSProperties;
+
+const chipLinkedinStyle = {
+  "--chip-bg": "transparent",
+  "--chip-ink": "rgba(255,255,255,0.75)",
+  "--chip-border": "rgba(255,255,255,0.2)",
+  "--chip-hover-bg": "rgba(255,255,255,0.08)",
+  "--chip-hover-border": "rgba(255,255,255,0.35)",
+  "--chip-hover-ink": "#ffffff",
+} as React.CSSProperties;
 
 export default function CtaFooter() {
   const { lang } = useLanguage();
-  const words = t.cta.words;
-  const [index, setIndex] = useState(0);
-  const [exiting, setExiting] = useState(false);
-
-  const { ref: titleRef, visible: titleVis } = useReveal();
-  const { ref: subRef, visible: subVis } = useReveal();
-  const { ref: linksRef, visible: linksVis } = useReveal();
-
-  // Inject keyframes via DOM — Tailwind v4 / Lightning CSS silently drops them from globals.css
-  useEffect(() => {
-    const el = document.createElement("style");
-    el.textContent = WORD_KEYFRAMES;
-    document.head.appendChild(el);
-    return () => { document.head.removeChild(el); };
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setExiting(true);
-      setTimeout(() => {
-        setIndex((i) => (i + 1) % words.en.length);
-        setExiting(false);
-      }, 340);
-    }, 2200);
-    return () => clearInterval(timer);
-  }, [words.en.length]);
 
   return (
-    <div id="contact" className="bg-p-ink">
-      <div className="max-w-[1440px] mx-auto py-24 px-10 min-[900px]:px-[88px] text-center flex flex-col items-center gap-6 max-sm:py-16 max-sm:px-6">
-      <p
-        ref={titleRef as React.RefObject<HTMLParagraphElement>}
-        className={`reveal text-white max-w-[480px] leading-[1.1] tracking-[-0.04em] ${titleVis ? "visible" : ""}`}
-        style={{
-          fontFamily: "var(--font-almarai), system-ui, sans-serif",
-          fontSize: "clamp(1.8rem, 4.5vw, 3.2rem)",
-          fontWeight: 400,
-        }}
-      >
-        {t.cta.pre[lang]}
-        <br />
-        <span
-          key={index}
+    <div id="contact" className="bg-p-ink relative overflow-hidden">
+      {/* Pixel stars */}
+      {STARS.map((s, i) => (
+        <div
+          key={i}
+          className="pixel-sky-anim absolute pointer-events-none"
           style={{
-            display: "inline-block",
-            animation: exiting
-              ? "wordExit 0.35s cubic-bezier(0.4,0,1,1) forwards"
-              : "wordEnter 0.45s cubic-bezier(0,0,0.2,1) forwards",
+            left: s.left,
+            top: s.top,
+            width: s.size,
+            height: s.size,
+            background: "#ece4bc",
+            opacity: 0.5,
+            animation: `pixelTwinkle ${s.dur} ease-in-out ${s.delay} infinite`,
           }}
-        >
-          {words[lang][index]}
-        </span>
-      </p>
+        />
+      ))}
+
+      <div className="relative z-[1] max-w-[1440px] mx-auto py-24 px-10 min-[1920px]:px-[88px] text-center flex flex-col items-center gap-6 max-sm:py-16 max-sm:px-6">
+      <h2
+        className="m-0 text-white max-w-[480px] font-normal italic leading-none"
+        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "clamp(36px, 4.5vw, 56px)" }}
+      >
+        {t.cta.headline[lang]}
+      </h2>
 
       <p
-        ref={subRef as React.RefObject<HTMLParagraphElement>}
-        className={`reveal text-body-lg text-white/45 max-w-[340px] leading-[1.7] ${subVis ? "visible" : ""}`}
-        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif", transitionDelay: "0.1s" }}
+        className="text-body-lg text-white/45 max-w-[340px] leading-[1.7]"
+        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
       >
         {t.cta.sub[lang]}
       </p>
 
-      <div
-        ref={linksRef as React.RefObject<HTMLDivElement>}
-        className={`reveal flex gap-3 mt-2 flex-wrap justify-center ${linksVis ? "visible" : ""}`}
-        style={{ transitionDelay: "0.2s" }}
-      >
+      <div className="flex gap-3 mt-2 flex-wrap justify-center">
         <motion.a
           href="mailto:mannogiu@gmail.com"
-          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-white text-p-ink border-white hover:bg-[#eee] hover:border-[#eee]"
-          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+          className="pixel-chip pixel-chip-lg"
+          style={chipEmailStyle}
           whileHover={{ rotate: -3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -104,8 +91,8 @@ export default function CtaFooter() {
           href="https://www.linkedin.com/in/giulia-manno-88681a144/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-colors duration-150 bg-transparent text-white/75 border-white/20 hover:bg-white/[0.08] hover:text-white hover:border-white/35"
-          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+          className="pixel-chip pixel-chip-lg"
+          style={chipLinkedinStyle}
           whileHover={{ rotate: -3, scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}

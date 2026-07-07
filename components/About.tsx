@@ -1,21 +1,18 @@
 "use client";
 
-import { useReveal } from "@/hooks/useReveal";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 
 export default function About() {
   const { lang } = useLanguage();
   const ab = t.about;
-  const { ref: textRef, visible: textVis } = useReveal();
-  const { ref: sideRef, visible: sideVis } = useReveal();
 
   return (
     <section id="about" className="py-20 border-t border-p-border max-sm:py-14">
-      <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5">
+      <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
-          className="text-xs font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+          className="text-base font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
           style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
         >
           {ab.label[lang]}
@@ -24,10 +21,7 @@ export default function About() {
         {/* Grid */}
         <div className="grid grid-cols-2 gap-16 max-sm:grid-cols-1 max-sm:gap-10">
           {/* Text + chips */}
-          <div
-            ref={textRef as React.RefObject<HTMLDivElement>}
-            className={`reveal ${textVis ? "visible" : ""}`}
-          >
+          <div>
             <p
               className="text-body-lg leading-[1.8] text-[#555550] mb-4"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
@@ -45,8 +39,8 @@ export default function About() {
               {ab.chips.map((chip) => (
                 <span
                   key={chip}
-                  className="text-sm font-[400] text-p-ink bg-p-soft rounded-full px-3 py-[0.35rem] border border-p-border transition-all duration-200 hover:bg-p-border hover:-translate-y-0.5 cursor-default"
-                  style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+                  className="text-sm font-[400] text-p-ink bg-p-soft rounded-md px-3 py-[0.35rem] transition-all duration-200 hover:bg-p-border hover:-translate-y-0.5 cursor-default"
+                  style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
                 >
                   {chip}
                 </span>
@@ -55,11 +49,7 @@ export default function About() {
           </div>
 
           {/* Side: education + also */}
-          <div
-            ref={sideRef as React.RefObject<HTMLDivElement>}
-            className={`reveal flex flex-col gap-8 ${sideVis ? "visible" : ""}`}
-            style={{ transitionDelay: "0.1s" }}
-          >
+          <div className="flex flex-col gap-8">
             {/* Education */}
             <div>
               <h4

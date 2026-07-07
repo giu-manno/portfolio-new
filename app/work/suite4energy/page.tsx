@@ -252,7 +252,7 @@ export default function Suite4EnergyCaseStudy() {
           caption="Final mid-fidelity screens across the Suite 4 Energy platform"
         />
         <div
-          className="grid my-6 border border-[var(--p-border)] rounded-[10px] overflow-hidden"
+          className="grid my-6 border border-[var(--p-border)] rounded-[4px] overflow-hidden"
           style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--p-border)" }}
         >
           <OutcomeCell num="5+"  label="Existing products unified under a single navigation shell" />

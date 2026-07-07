@@ -34,7 +34,7 @@ function BentoCell({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [-18, 18]);
   return (
-    <div ref={ref} className={`relative overflow-hidden rounded-xl cursor-zoom-in ${className}`} style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }} onClick={onOpen}>
+    <div ref={ref} className={`relative overflow-hidden rounded-[4px] cursor-zoom-in ${className}`} style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }} onClick={onOpen}>
       <motion.div style={{ y, position: "absolute", top: -18, bottom: -18, left: 0, right: 0 }}>
         <Image src={src} alt={alt} fill placeholder="blur" className="object-cover"
           sizes="(max-width: 640px) 100vw, 50vw" />
@@ -238,7 +238,7 @@ export default function AdesCaseStudy() {
           alt="High-fidelity screens — authentication, document review, sharing options, and dashboard views"
         />
         <div
-          className="grid my-6 border border-[var(--p-border)] rounded-[10px] overflow-hidden"
+          className="grid my-6 border border-[var(--p-border)] rounded-[4px] overflow-hidden"
           style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--p-border)" }}
         >
           <OutcomeCell num="200+" label="Survey responses informing design decisions" />

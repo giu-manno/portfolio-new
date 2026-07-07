@@ -101,7 +101,7 @@ export default function CaseStudyLayout({
 
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-50 bg-p-bg/[0.88] backdrop-blur-md border-b border-p-border">
-        <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between">
           <div className="flex items-center gap-5">
             <Link
               href="/"
@@ -162,7 +162,7 @@ export default function CaseStudyLayout({
 
         {/* ── Info block ── */}
         <div className="border-b border-[var(--p-border)]">
-          <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-12 flex gap-16 max-sm:flex-col max-sm:gap-8">
+          <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-12 flex gap-16 max-sm:flex-col max-sm:gap-8">
 
             {/* Left: eyebrow · title · tagline */}
             <div className="flex-1 min-w-0">
@@ -207,7 +207,7 @@ export default function CaseStudyLayout({
         </div>
 
         {/* ── Content + Sidebar ── */}
-        <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-24 max-sm:py-14 grid gap-20 items-start min-[900px]:[grid-template-columns:1fr_200px]">
+        <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-24 max-sm:py-14 grid gap-20 items-start min-[900px]:[grid-template-columns:1fr_200px]">
           <main>{children}</main>
 
           <aside className="hidden min-[900px]:flex flex-col gap-0 sticky top-20" aria-label="Page sections">
@@ -249,7 +249,7 @@ export default function CaseStudyLayout({
 
         {/* ── Next project ── */}
         {nextProject && (
-          <div className="w-full max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-8 flex items-center justify-end gap-8">
+          <div className="w-full max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-8 flex items-center justify-end gap-8">
             <div className="text-right">
               <div
                 className="text-xs tracking-[0.14em] uppercase text-[var(--p-muted)] mb-2"

@@ -5,26 +5,41 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 import { getSprites, periodForHour, PALETTES, type Period } from "@/lib/pixelSprites";
 
+// Twinkling star dots, same style as the CTA footer's star field
 const SPARKLES = [
-  { left: "46%", top: "10%", dur: "2.6s", delay: "0s" },
-  { left: "36%", top: "30%", dur: "3.4s", delay: "-1.2s" },
-  { left: "58%", top: "14%", dur: "2.2s", delay: "-0.7s" },
-  { left: "16%", top: "52%", dur: "3.8s", delay: "-2.1s" },
-  { left: "8%", top: "22%", dur: "2.9s", delay: "-0.4s" },
-  { left: "27%", top: "66%", dur: "2.4s", delay: "-1.7s" },
-  { left: "65%", top: "8%", dur: "3.1s", delay: "-2.6s" },
+  { left: "4%", top: "12%", size: 3, dur: "2.6s", delay: "0s" },
+  { left: "13%", top: "48%", size: 2, dur: "3.4s", delay: "-1.2s" },
+  { left: "22%", top: "8%", size: 2, dur: "2.2s", delay: "-0.7s" },
+  { left: "31%", top: "34%", size: 3, dur: "3.8s", delay: "-2.1s" },
+  { left: "42%", top: "16%", size: 2, dur: "2.9s", delay: "-0.4s" },
+  { left: "51%", top: "56%", size: 2, dur: "2.4s", delay: "-1.7s" },
+  { left: "60%", top: "28%", size: 3, dur: "3.1s", delay: "-2.6s" },
+  { left: "71%", top: "10%", size: 2, dur: "2.7s", delay: "-1.0s" },
+  { left: "81%", top: "42%", size: 3, dur: "3.5s", delay: "-2.3s" },
+  { left: "92%", top: "20%", size: 2, dur: "2.5s", delay: "-1.5s" },
+];
+
+// Static tone-on-tone squares scattered in the sky for pixel-texture depth
+const SKY_TEX = [
+  { left: "9%", top: "30%", size: 12, light: true },
+  { left: "18%", top: "62%", size: 10, light: false },
+  { left: "28%", top: "18%", size: 13, light: false },
+  { left: "39%", top: "44%", size: 10, light: true },
+  { left: "49%", top: "9%", size: 12, light: false },
+  { left: "58%", top: "38%", size: 11, light: true },
+  { left: "69%", top: "58%", size: 10, light: false },
+  { left: "78%", top: "24%", size: 13, light: true },
+  { left: "88%", top: "50%", size: 10, light: false },
 ];
 
 // w/h in px, matching each cloud grid's pixel aspect ratio (a: 24x10, b: 14x6, c: 30x7)
 const CLOUDS = [
-  { top: "28%", dur: 150, delay: -60, sprite: "a", w: 190, h: 79 },
-  { top: "46%", dur: 190, delay: -120, sprite: "c", w: 230, h: 54 },
-  { top: "62%", dur: 170, delay: -70, sprite: "b", w: 92, h: 39 },
-  { top: "6%", dur: 220, delay: -170, sprite: "b", w: 76, h: 33 },
-  { top: "38%", dur: 260, delay: -200, sprite: "a", w: 120, h: 50 },
+  { top: "28%", dur: 60, delay: -24, sprite: "a", w: 190, h: 79 },
+  { top: "46%", dur: 76, delay: -48, sprite: "c", w: 230, h: 54 },
+  { top: "62%", dur: 68, delay: -28, sprite: "b", w: 92, h: 39 },
+  { top: "6%", dur: 88, delay: -68, sprite: "b", w: 76, h: 33 },
+  { top: "38%", dur: 104, delay: -80, sprite: "a", w: 120, h: 50 },
 ] as const;
-
-type Bird = { id: number; top: string; dur: string; size: number };
 
 const pixelFont = "var(--font-geist-pixel), 'Doto', monospace";
 const serifFont = "var(--font-instrument-serif), Georgia, serif";
@@ -37,38 +52,11 @@ interface HeroProps {
 export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroProps) {
   const { lang } = useLanguage();
   const [now, setNow] = useState<Date | null>(null);
-  const [birds, setBirds] = useState<Bird[]>([]);
 
   useEffect(() => {
     setNow(new Date());
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    let id = 0;
-    let spawnTimer: ReturnType<typeof setTimeout>;
-    const despawnTimers: ReturnType<typeof setTimeout>[] = [];
-    const schedule = (wait: number) => {
-      spawnTimer = setTimeout(() => {
-        const birdId = ++id;
-        const dur = 9 + Math.random() * 6;
-        const size = Math.random() < 0.5 ? 22 : 30;
-        setBirds((bs) => [
-          ...bs,
-          { id: birdId, top: (6 + Math.random() * 44).toFixed(1) + "%", dur: dur.toFixed(1) + "s", size },
-        ]);
-        despawnTimers.push(
-          setTimeout(() => setBirds((bs) => bs.filter((b) => b.id !== birdId)), dur * 1000 + 600)
-        );
-        schedule(5000 + Math.random() * 12000);
-      }, wait);
-    };
-    schedule(2500);
-    return () => {
-      clearTimeout(spawnTimer);
-      despawnTimers.forEach(clearTimeout);
-    };
   }, []);
 
   const mounted = now !== null;
@@ -93,13 +81,37 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
   const palette = PALETTES[period];
   const sprites = mounted ? getSprites(period) : null;
 
+  // Page-wide accent follows the sky's time of day (selection, hover underlines)
+  useEffect(() => {
+    document.documentElement.style.setProperty("--p-accent", palette.accent);
+  }, [palette.accent]);
+
   return (
-    <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] pt-6 pb-20 max-sm:px-5 max-sm:pt-3 max-sm:pb-12">
+    <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] pt-6 pb-10 max-sm:px-5 max-sm:pt-3 max-sm:pb-8">
       {/* ─── Sky panel ─── */}
       <div
-        className="hero-item hero-item-1 relative overflow-hidden rounded-[14px] transition-colors duration-700"
-        style={{ height: 380, background: palette.sky }}
+        className="hero-item hero-item-1 relative overflow-hidden rounded-[4px]"
+        style={{
+          height: 380,
+          background: `linear-gradient(to bottom, ${palette.skyBands[0]} 0%, ${palette.skyBands[0]} 30%, ${palette.skyBands[1]} 30%, ${palette.skyBands[1]} 55%, ${palette.skyBands[2]} 55%, ${palette.skyBands[2]} 78%, ${palette.skyBands[3]} 78%, ${palette.skyBands[3]} 100%)`,
+        }}
       >
+        {/* Sky texture squares */}
+        {SKY_TEX.map((q, i) => (
+          <div
+            key={i}
+            className="absolute pointer-events-none"
+            style={{
+              left: q.left,
+              top: q.top,
+              width: q.size,
+              height: q.size,
+              background: q.light ? "rgba(255,255,255,0.10)" : "rgba(10,15,40,0.07)",
+            }}
+          />
+        ))}
+
+        {/* Twinkling star dots */}
         {SPARKLES.map((s, i) => (
           <div
             key={i}
@@ -107,9 +119,10 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
             style={{
               left: s.left,
               top: s.top,
-              width: 13,
-              height: 13,
+              width: s.size,
+              height: s.size,
               background: palette.sparkle,
+              opacity: 0.5,
               animation: `pixelTwinkle ${s.dur} ease-in-out ${s.delay} infinite`,
             }}
           />
@@ -149,43 +162,23 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
               </div>
             ))}
 
-            {/* birds */}
-            {birds.map((b) => (
+            {/* grass strip — two frames; the sway frame flashes in on a gust once in a while */}
+            {[sprites.grass, sprites.grassSway].map((src, i) => (
               <div
-                key={b.id}
-                className="pixel-sky-anim absolute left-0 overflow-hidden will-change-transform z-[3]"
+                key={i}
+                className="pixel-sky-anim absolute left-0 bottom-0 w-full"
                 style={{
-                  top: b.top,
-                  width: b.size,
-                  height: Math.round((b.size * 4) / 7),
-                  animation: `pixelDrift ${b.dur} linear forwards`,
+                  height: 110,
+                  backgroundImage: `url(${src})`,
+                  backgroundSize: "auto 110px",
+                  backgroundPosition: "left bottom",
+                  backgroundRepeat: "repeat-x",
+                  imageRendering: "pixelated",
+                  opacity: i === 0 ? 1 : 0,
+                  animation: `${i === 0 ? "grassGustA" : "grassGustB"} 6s steps(1, end) infinite`,
                 }}
-              >
-                <div
-                  className="pixel-sky-anim h-full"
-                  style={{
-                    width: "200%",
-                    backgroundImage: `url(${sprites.bird})`,
-                    backgroundSize: "100% 100%",
-                    imageRendering: "pixelated",
-                    animation: "pixelFlap 0.45s steps(1) infinite",
-                  }}
-                />
-              </div>
+              />
             ))}
-
-            {/* grass strip */}
-            <div
-              className="absolute left-0 bottom-0 w-full"
-              style={{
-                height: 110,
-                backgroundImage: `url(${sprites.grass})`,
-                backgroundSize: "auto 110px",
-                backgroundPosition: "left bottom",
-                backgroundRepeat: "repeat-x",
-                imageRendering: "pixelated",
-              }}
-            />
           </>
         )}
 

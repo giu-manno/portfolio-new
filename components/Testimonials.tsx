@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useReveal } from "@/hooks/useReveal";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 import { testimonials } from "@/content/testimonials";
@@ -29,17 +28,16 @@ function PixelArrow({ direction }: { direction: "prev" | "next" }) {
 export default function Testimonials() {
   const { lang } = useLanguage();
   const [index, setIndex] = useState(0);
-  const { ref: bodyRef, visible: bodyVis } = useReveal();
 
   const n = testimonials.length;
   const current = testimonials[index];
 
   return (
     <section id="testimonials" className="py-20 border-t border-p-border max-sm:py-14">
-      <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5">
+      <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         {/* Section label */}
         <div
-          className="text-center text-xs font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+          className="text-center text-base font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
           style={{ fontFamily: pixelFont }}
         >
           {t.testimonials.label[lang]}
@@ -52,10 +50,7 @@ export default function Testimonials() {
           {t.testimonials.headline[lang]}
         </h2>
 
-        <div
-          ref={bodyRef as React.RefObject<HTMLDivElement>}
-          className={`reveal flex items-center justify-center gap-14 max-sm:gap-3 ${bodyVis ? "visible" : ""}`}
-        >
+        <div className="flex items-center justify-center gap-14 max-sm:gap-3">
           <button
             onClick={() => setIndex((index - 1 + n) % n)}
             aria-label={t.testimonials.prev[lang]}
@@ -64,7 +59,7 @@ export default function Testimonials() {
             <PixelArrow direction="prev" />
           </button>
 
-          <div className="w-[min(560px,70vw)] border border-p-ink rounded-[14px] pt-7 px-[30px] pb-6 flex flex-col gap-[26px]">
+          <div className="w-[min(560px,70vw)] border border-p-ink rounded-[4px] pt-7 px-[30px] pb-6 flex flex-col gap-[26px]">
             <p className="m-0 text-[15px] leading-[1.55] text-p-ink">{current.quote}</p>
             <div className="flex items-center gap-[18px]">
               <Image src={`${basePath}/pixel-icons/stamp.svg`} alt="" width={30} height={30} />

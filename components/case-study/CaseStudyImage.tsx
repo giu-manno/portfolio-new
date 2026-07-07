@@ -35,7 +35,7 @@ export function CaseStudyImage({
   return (
     <div className="my-10 relative" ref={containerRef}>
       <div
-        className="w-full rounded-xl overflow-hidden relative cursor-zoom-in"
+        className="w-full rounded-[4px] overflow-hidden relative cursor-zoom-in"
         style={{ aspectRatio, boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }}
         onClick={() => open(indexRef.current)}
       >

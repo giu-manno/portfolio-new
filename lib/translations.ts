@@ -24,7 +24,7 @@ export const translations = {
     },
   },
   work: {
-    label: { en: "Work", pt: "Projetos" },
+    label: { en: "Projects", pt: "Projetos" },
   },
   experience: {
     label: { en: "Experience", pt: "Experiências Profissionais" },
@@ -133,11 +133,7 @@ export const translations = {
     next:     { en: "Next testimonial",     pt: "Próximo depoimento" },
   },
   cta: {
-    pre:    { en: "Let's make your product", pt: "Vamos tornar seu projeto" },
-    words:  {
-      en: ["better.", "smarter.", "cleaner.", "faster.", "clearer."],
-      pt: ["melhor.", "mais inteligente.", "mais limpo.", "mais rápido.", "mais claro."],
-    },
+    headline: { en: "let's work together!", pt: "vamos trabalhar juntos!" },
     sub: {
       en: "Open to full-time roles, freelance projects, and collaborations.",
       pt: "Aberta a posições full-time, projetos freelance e colaborações.",
