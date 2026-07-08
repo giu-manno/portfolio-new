@@ -8,14 +8,11 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 
 function SectionLabel({ text }: { text: string }) {
-  const { ref, visible } = useReveal();
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex items-center gap-[0.6rem] text-xs font-[400] tracking-[0.12em] uppercase text-p-muted mb-8"
-      style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+      className="text-base font-[400] tracking-[0.12em] lowercase text-[#333333] mb-8"
+      style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
     >
-      <span className={`section-label-line${visible ? " visible" : ""}`} />
       {text}
     </div>
   );
@@ -29,7 +26,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="py-20 border-t border-p-border max-sm:py-14">
-      <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5">
+      <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5">
         <SectionLabel text={exp.label[lang]} />
 
         <div className="grid gap-16 max-sm:gap-8 max-sm:grid-cols-1 min-[640px]:[grid-template-columns:200px_1fr]">
@@ -47,7 +44,7 @@ export default function Experience() {
             <a
               href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
               download
-              className="self-start inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-full no-underline border-[1.5px] transition-all duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
+              className="self-start inline-flex items-center gap-2 text-base font-[400] px-[1.1rem] py-[0.6rem] rounded-md no-underline border-[1.5px] transition-all duration-150 bg-p-ink text-p-white border-p-ink hover:bg-[#333] hover:border-[#333]"
               style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
             >
               {exp.downloadCV[lang]}

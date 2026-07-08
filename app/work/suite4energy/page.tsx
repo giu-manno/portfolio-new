@@ -4,7 +4,7 @@ import CaseStudyLayout from "@/components/CaseStudyLayout";
 import { CaseStudyImage } from "@/components/case-study/CaseStudyImage";
 import s4eCloseup       from "@/public/s4e-casestudy-images/s4e-closeup.webp";
 import s4eSitemap       from "@/public/s4e-casestudy-images/s4e-sitemap.webp";
-import s4eWireframes    from "@/public/s4e-casestudy-images/s4e-wireframes.jpg";
+import s4eWireframes    from "@/public/s4e-casestudy-images/s4e-wireframes.webp";
 import s4eMediumfi      from "@/public/s4e-casestudy-images/s4e-mediumfi.webp";
 import s4eScreens       from "@/public/s4e-casestudy-images/s4e-screens.webp";
 import {
@@ -252,7 +252,7 @@ export default function Suite4EnergyCaseStudy() {
           caption="Final mid-fidelity screens across the Suite 4 Energy platform"
         />
         <div
-          className="grid my-6 border border-[var(--p-border)] rounded-[10px] overflow-hidden"
+          className="grid my-6 border border-[var(--p-border)] rounded-[4px] overflow-hidden"
           style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--p-border)" }}
         >
           <OutcomeCell num="5+"  label="Existing products unified under a single navigation shell" />

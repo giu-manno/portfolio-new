@@ -121,7 +121,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
                     alt={current.alt}
                     animate={{ scale: state.zoomed ? 1.75 : 1 }}
                     transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                    className="max-w-[90vw] max-h-[75vh] rounded-xl object-contain block select-none"
+                    className="max-w-[90vw] max-h-[75vh] rounded-[4px] object-contain block select-none"
                     style={{ cursor: state.zoomed ? "zoom-out" : "zoom-in" }}
                     onClick={(e) => { e.stopPropagation(); toggleZoom(); }}
                     draggable={false}

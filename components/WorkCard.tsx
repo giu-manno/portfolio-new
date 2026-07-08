@@ -7,21 +7,26 @@ import { createPortal } from "react-dom";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useReveal } from "@/hooks/useReveal";
+import WorkCardPop from "./WorkCardPop";
 
 interface WorkCardProps {
   gradient: string;
   tall?: boolean;
   title: string;
   subtitle: string;
+  tagline: string;
   year: string;
   delay?: number;
   href?: string;
   password?: string;
   image?: string;
-  chipColor?: string;
+  bg?: string;
+  screen?: string;
+  screen2?: string;
+  keywords?: string[];
 }
 
-function CursorChip({ title, year, visible, color }: { title: string; year: string; visible: boolean; color?: string }) {
+function CursorChip({ visible }: { visible: boolean }) {
   const [mounted, setMounted] = useState(false);
   const cursorX = useMotionValue(-200);
   const cursorY = useMotionValue(-200);
@@ -45,14 +50,13 @@ function CursorChip({ title, year, visible, color }: { title: string; year: stri
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed z-[200] pointer-events-none flex items-center gap-2 text-white rounded-full px-4 py-2.5 select-none"
+          className="fixed z-[200] pointer-events-none flex items-center gap-2 text-white rounded-md px-4 py-2.5 select-none overflow-hidden"
           style={{
             x,
             y,
             translateX: "-50%",
             translateY: "-50%",
-            background: color ?? "var(--p-ink)",
-            fontFamily: "var(--font-almarai), system-ui, sans-serif",
+            fontFamily: "var(--font-geist-pixel), 'Doto', monospace",
             fontSize: "1rem",
             fontWeight: 400,
             whiteSpace: "nowrap",
@@ -62,10 +66,16 @@ function CursorChip({ title, year, visible, color }: { title: string; year: stri
           exit={{ scale: 0.6, opacity: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
         >
-          {title}, {year}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <div
+            className="absolute inset-0"
+            style={{ background: "rgba(0, 0, 0, 0.75)", mixBlendMode: "multiply" }}
+          />
+          <span className="relative flex items-center gap-2">
+            view case study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
         </motion.div>
       )}
     </AnimatePresence>,
@@ -78,12 +88,16 @@ export default function WorkCard({
   tall,
   title,
   subtitle,
+  tagline,
   year,
   delay = 0,
   href,
   password,
   image,
-  chipColor,
+  bg,
+  screen,
+  screen2,
+  keywords,
 }: WorkCardProps) {
   const { ref, visible } = useReveal();
   const router = useRouter();
@@ -104,28 +118,56 @@ export default function WorkCard({
     return () => io.disconnect();
   }, [ref]);
 
-  const cardStyle = { background: gradient, transitionDelay: `${delay}s` };
-  const className = `group reveal work-card-hover noise-overlay relative rounded-[14px] overflow-hidden flex flex-col justify-end ${tall ? "row-span-2 min-h-[748px]" : "min-h-[364px]"} ${visible ? "visible" : ""}`;
+  const isPop = Boolean(bg && screen);
+  const cardStyle = isPop
+    ? { transitionDelay: `${delay}s` }
+    : { background: gradient, transitionDelay: `${delay}s` };
+  const wrapperClassName = `reveal flex flex-col ${tall ? "row-span-2" : ""} ${visible ? "visible" : ""}`;
+  const className = `group work-card-hover relative rounded-[4px] overflow-hidden flex flex-col justify-end ${
+    isPop ? "" : "noise-overlay"
+  } ${tall ? "min-h-[748px]" : "min-h-[364px]"}`;
+  const taglineEl = (
+    <div className="mt-1 flex items-baseline justify-between gap-4">
+      <p
+        className="italic text-p-ink"
+        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "20px" }}
+      >
+        {tagline}
+      </p>
+      <span
+        className="text-p-muted whitespace-nowrap"
+        style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace", fontSize: "14px" }}
+      >
+        {title} - {year}
+      </span>
+    </div>
+  );
 
   const inner = (
     <>
-      {/* Card image / placeholder */}
-      <div className="absolute inset-0 z-[2]">
-        {image ? (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${image}`}
-            alt={title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-            className="object-cover object-center"
-          />
-        ) : (
-          <div className="w-full h-full bg-white/10" />
-        )}
-      </div>
+      {isPop ? (
+        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} alt={title} tall={tall} keywords={keywords} />
+      ) : (
+        <>
+          {/* Card image / placeholder */}
+          <div className="absolute inset-0 z-[2]">
+            {image ? (
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${image}`}
+                alt={title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                className="object-cover object-center"
+              />
+            ) : (
+              <div className="w-full h-full bg-white/10" />
+            )}
+          </div>
 
-      {/* Inset border on hover */}
-      <div className="card-inset-border absolute inset-0 rounded-[14px] border border-transparent pointer-events-none z-[4]" />
+          {/* Inset border on hover */}
+          <div className="card-inset-border absolute inset-0 rounded-[4px] border border-transparent pointer-events-none z-[4]" />
+        </>
+      )}
 
       {/* Mobile-only overlay (no hover chip on touch devices) */}
       <div
@@ -148,14 +190,14 @@ export default function WorkCard({
         </div>
         <div
           className="text-xs text-white/40 flex-shrink-0"
-          style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+          style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
         >
           {year}
         </div>
       </div>
 
       {/* Cursor chip */}
-      {isHoverable && <CursorChip title={title} year={year} visible={chipVisible} color={chipColor} />}
+      {isHoverable && <CursorChip visible={chipVisible} />}
     </>
   );
 
@@ -175,8 +217,11 @@ export default function WorkCard({
       if (input === password) { sessionStorage.setItem(storageKey, "1"); router.push(href!); }
     }
     return (
-      <div ref={ref as React.RefObject<HTMLDivElement>} className={className} onClick={handleClick} {...hoverProps}>
-        {inner}
+      <div ref={ref as React.RefObject<HTMLDivElement>} className={wrapperClassName}>
+        <div className={className} onClick={handleClick} {...hoverProps}>
+          {inner}
+        </div>
+        {taglineEl}
       </div>
     );
   }
@@ -184,15 +229,21 @@ export default function WorkCard({
   // Regular linked card
   if (href) {
     return (
-      <Link href={href} ref={ref as React.RefObject<HTMLAnchorElement>} className={className} {...hoverProps}>
-        {inner}
-      </Link>
+      <div ref={ref as React.RefObject<HTMLDivElement>} className={wrapperClassName}>
+        <Link href={href} className={className} {...hoverProps}>
+          {inner}
+        </Link>
+        {taglineEl}
+      </div>
     );
   }
 
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={cardStyle}>
-      {inner}
+    <div ref={ref as React.RefObject<HTMLDivElement>} className={wrapperClassName}>
+      <div className={className} style={cardStyle}>
+        {inner}
+      </div>
+      {taglineEl}
     </div>
   );
 }

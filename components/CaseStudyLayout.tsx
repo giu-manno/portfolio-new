@@ -3,12 +3,14 @@
 import Link from "next/link";
 import Image, { type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
-import { Switch } from "@/components/ui/switch";
+import LanguageToggle from "@/components/LanguageToggle";
+import TulipMark from "@/components/TulipMark";
 import CtaFooter from "@/components/CtaFooter";
 import Footer from "@/components/Footer";
 import PasswordGate from "@/components/PasswordGate";
 import { LightboxProvider } from "@/components/case-study/LightboxContext";
+
+const pixelFont = "var(--font-geist-pixel), 'Doto', monospace";
 
 export interface CaseStudySection {
   id: string;
@@ -70,7 +72,6 @@ export default function CaseStudyLayout({
   slug,
   children,
 }: CaseStudyLayoutProps) {
-  const { lang, toggle } = useLanguage();
   const [activeSection, setActiveSection] = useState<string>(sections[0]?.id ?? "");
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -99,39 +100,25 @@ export default function CaseStudyLayout({
     <LightboxProvider>
     <div style={cssVars}>
 
-      {/* ── Nav ── */}
+      {/* ── Nav (mirrors the homepage Nav styling) ── */}
       <nav className="sticky top-0 z-50 bg-p-bg/[0.88] backdrop-blur-md border-b border-p-border">
-        <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-5">
-            <Link
-              href="/"
-              className="text-base tracking-[-0.02em] text-p-ink no-underline font-[400]"
-              style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            >
-              giulia manno
+        <div
+          className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 h-14 flex items-center justify-between"
+          style={{ fontFamily: pixelFont }}
+        >
+          <div className="flex items-center gap-6 max-sm:gap-4">
+            <Link href="/" className="flex items-center gap-2.5 text-[15px] text-p-ink no-underline">
+              <TulipMark />
+              <span>giulia manno</span>
             </Link>
             <Link
               href="/#work"
-              className="text-sm text-[var(--p-muted)] no-underline transition-colors duration-150 hover:text-[var(--p-ink)]"
-              style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+              className="text-[15px] text-[var(--p-muted)] no-underline transition-colors duration-150 hover:text-p-ink"
             >
               ← All work
             </Link>
           </div>
-          <button
-            onClick={toggle}
-            className="flex items-center gap-2 cursor-pointer select-none"
-            style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-            aria-label="Toggle language"
-          >
-            <span className={`text-sm flex items-center gap-1 transition-opacity duration-150 ${lang === "pt" ? "opacity-100" : "opacity-40"}`}>
-              🇧🇷 <span>PT</span>
-            </span>
-            <Switch checked={lang === "pt"} className="pointer-events-none" />
-            <span className={`text-sm flex items-center gap-1 transition-opacity duration-150 ${lang === "en" ? "opacity-100" : "opacity-40"}`}>
-              <span>EN</span> 🇺🇸
-            </span>
-          </button>
+          <LanguageToggle />
         </div>
       </nav>
 
@@ -162,7 +149,7 @@ export default function CaseStudyLayout({
 
         {/* ── Info block ── */}
         <div className="border-b border-[var(--p-border)]">
-          <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-12 flex gap-16 max-sm:flex-col max-sm:gap-8">
+          <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-12 flex gap-16 max-sm:flex-col max-sm:gap-8">
 
             {/* Left: eyebrow · title · tagline */}
             <div className="flex-1 min-w-0">
@@ -207,7 +194,7 @@ export default function CaseStudyLayout({
         </div>
 
         {/* ── Content + Sidebar ── */}
-        <div className="max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-24 max-sm:py-14 grid gap-20 items-start min-[900px]:[grid-template-columns:1fr_200px]">
+        <div className="max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-24 max-sm:py-14 grid gap-20 items-start min-[900px]:[grid-template-columns:1fr_200px]">
           <main>{children}</main>
 
           <aside className="hidden min-[900px]:flex flex-col gap-0 sticky top-20" aria-label="Page sections">
@@ -249,7 +236,7 @@ export default function CaseStudyLayout({
 
         {/* ── Next project ── */}
         {nextProject && (
-          <div className="w-full max-w-[1440px] mx-auto px-10 min-[900px]:px-[88px] max-sm:px-5 py-8 flex items-center justify-end gap-8">
+          <div className="w-full max-w-[1440px] mx-auto px-10 min-[1920px]:px-[88px] max-sm:px-5 py-8 flex items-center justify-end gap-8">
             <div className="text-right">
               <div
                 className="text-xs tracking-[0.14em] uppercase text-[var(--p-muted)] mb-2"

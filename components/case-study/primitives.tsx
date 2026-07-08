@@ -88,7 +88,7 @@ export function InsightCard({ label, text }: { label: string; text: string }) {
   const isOpportunity = label.toLowerCase().includes("opportunit");
   return (
     <div
-      className="rounded-[10px] p-5"
+      className="rounded-[4px] p-5"
       style={isOpportunity ? {
         background: "color-mix(in srgb, var(--p-accent) 9%, transparent)",
         border: "1px solid color-mix(in srgb, var(--p-accent) 28%, transparent)",
@@ -171,23 +171,6 @@ export function OutcomeCell({ num, label }: { num: string; label: string }) {
       >
         {label}
       </div>
-    </div>
-  );
-}
-
-export function ImgPlaceholder({ caption }: { caption: string }) {
-  return (
-    <div className="my-10">
-      <div
-        className="w-full rounded-xl overflow-hidden"
-        style={{ background: "#1a1a2e", aspectRatio: "16/7" }}
-      />
-      <p
-        className="text-xs text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
-        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-      >
-        {caption}
-      </p>
     </div>
   );
 }

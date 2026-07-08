@@ -1,9 +1,12 @@
 export const translations = {
   nav: {
-    work:       { en: "Work",       pt: "Projetos" },
-    experience: { en: "Experience", pt: "Experiência" },
-    about:      { en: "About",      pt: "Sobre" },
-    langBtn:    { en: "PT",         pt: "EN" },
+    work:         { en: "Work",       pt: "Projetos" },
+    experience:   { en: "Experience", pt: "Experiência" },
+    about:        { en: "About",      pt: "Sobre" },
+    langBtn:      { en: "PT",         pt: "EN" },
+    projects:     { en: "projects",     pt: "projetos" },
+    aboutMe:      { en: "about me",     pt: "sobre mim" },
+    testimonials: { en: "testimonials", pt: "depoimentos" },
   },
   hero: {
     greeting: { en: "Hey! I'm",  pt: "Oi! Meu nome é" },
@@ -13,12 +16,18 @@ export const translations = {
     },
     contact:  { en: "Contact me",   pt: "Fale comigo" },
     seeWork:  { en: "See my work",   pt: "Ver projetos" },
+    clock: {
+      dawn:   { en: "it's dawn at my place right now",      pt: "está amanhecendo aqui agora" },
+      day:    { en: "it's daytime at my place right now",   pt: "é dia aqui agora" },
+      sunset: { en: "it's sunset at my place right now",    pt: "é pôr do sol aqui agora" },
+      night:  { en: "it's nighttime at my place right now", pt: "é noite aqui agora" },
+    },
   },
   work: {
-    label: { en: "[01] Work", pt: "[01] Projetos" },
+    label: { en: "Projects", pt: "Projetos" },
   },
   experience: {
-    label: { en: "[02] Experience", pt: "[02] Experiências Profissionais" },
+    label: { en: "Experience", pt: "Experiências Profissionais" },
     blurb: {
       en: "4+ years building products across SaaS, research, and consulting.",
       pt: "4+ anos construindo produtos em SaaS, pesquisa e consultoria.",
@@ -76,7 +85,7 @@ export const translations = {
     ],
   },
   about: {
-    label: { en: "[03] About", pt: "[03] Sobre" },
+    label: { en: "About", pt: "Sobre" },
     p1: {
       en: "I'm Giulia — a designer from Florianópolis who works at the crossroads of product thinking, systems design, and real care for usability. I've spent 4+ years building products end-to-end: from research to system, from sketch to shipped.",
       pt: "Sou Giulia — uma designer de Florianópolis que trabalha na interseção entre pensamento de produto, design de sistemas e cuidado real com usabilidade. Passei mais de 4 anos construindo produtos do início ao fim: da pesquisa ao sistema, do esboço à entrega.",
@@ -117,12 +126,14 @@ export const translations = {
       },
     ],
   },
+  testimonials: {
+    label:    { en: "testimonials", pt: "depoimentos" },
+    headline: { en: "nice words are like pretty flowers", pt: "palavras gentis são como flores bonitas" },
+    prev:     { en: "Previous testimonial", pt: "Depoimento anterior" },
+    next:     { en: "Next testimonial",     pt: "Próximo depoimento" },
+  },
   cta: {
-    pre:    { en: "Let's make your product", pt: "Vamos tornar seu projeto" },
-    words:  {
-      en: ["better.", "smarter.", "cleaner.", "faster.", "clearer."],
-      pt: ["melhor.", "mais inteligente.", "mais limpo.", "mais rápido.", "mais claro."],
-    },
+    headline: { en: "let's work together!", pt: "vamos trabalhar juntos!" },
     sub: {
       en: "Open to full-time roles, freelance projects, and collaborations.",
       pt: "Aberta a posições full-time, projetos freelance e colaborações.",
@@ -131,6 +142,7 @@ export const translations = {
   footer: {
     copy:     { en: "Giulia Manno Lima - 2026",               pt: "Giulia Manno Lima - 2026" },
     tagline:  { en: "Product Designer · Florianópolis, Brazil", pt: "Product Designer · Florianópolis, Brasil" },
+    credit:   { en: "pixel icons by Streamline", pt: "ícones pixel por Streamline" },
   },
 } as const;
 
