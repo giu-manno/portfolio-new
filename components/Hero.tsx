@@ -357,7 +357,7 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
         </p>
         <div className="hero-item hero-item-2 order-2 sm:order-none flex gap-2 flex-wrap sm:col-span-2 sm:row-start-2 lg:col-span-1 lg:col-start-1">
           <a
-            href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/Giulia Manno Lima - 2026 CV.pdf`}
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/GiuliaManno-CV.pdf`}
             target="_blank"
             rel="noopener noreferrer"
             className="pixel-chip"
