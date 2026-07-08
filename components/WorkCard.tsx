@@ -125,12 +125,16 @@ export default function WorkCard({
   const wrapperClassName = `reveal flex flex-col ${tall ? "row-span-2" : ""} ${visible ? "visible" : ""}`;
   const className = `group work-card-hover relative rounded-[4px] overflow-hidden flex flex-col justify-end ${
     isPop ? "" : "noise-overlay"
-  } ${tall ? "min-h-[748px]" : "min-h-[364px]"}`;
+  } ${
+    tall
+      ? "min-h-[748px] min-[900px]:min-h-[85vh] min-[1200px]:min-h-[100vh]"
+      : "min-h-[364px] min-[900px]:min-h-[50vh] min-[1200px]:min-h-[60vh]"
+  }`;
   const taglineEl = (
     <div className="mt-1 flex items-baseline justify-between gap-4">
       <p
         className="italic text-p-ink"
-        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "20px" }}
+        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", fontSize: "24px" }}
       >
         {tagline}
       </p>
@@ -146,7 +150,7 @@ export default function WorkCard({
   const inner = (
     <>
       {isPop ? (
-        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} alt={title} tall={tall} keywords={keywords} />
+        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} alt={title} keywords={keywords} />
       ) : (
         <>
           {/* Card image / placeholder */}

@@ -20,7 +20,7 @@ export default function Work() {
         </div>
 
         {/* Stacked full-width cards, one per project */}
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-16">
           {projects.map((p, i) => (
             <WorkCard
               key={p.href}

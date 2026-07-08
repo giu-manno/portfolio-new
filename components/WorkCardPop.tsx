@@ -47,25 +47,22 @@ interface WorkCardPopProps {
   screen2?: string;
   /** Alt text for the screen image (project title). */
   alt: string;
-  /** Matches the WorkCard tall variant so the mask layer covers the card. */
-  tall?: boolean;
   /** Marquee words shown behind the lifted screen on hover. */
   keywords?: string[];
 }
 
-export default function WorkCardPop({ bg, screen, screen2, alt, tall, keywords }: WorkCardPopProps) {
+export default function WorkCardPop({ bg, screen, screen2, alt, keywords }: WorkCardPopProps) {
   return (
     <>
-      {/* Background mask — the image inside is bottom-anchored at the card's
-          full height; the mask and image counter-translate so the cut line
+      {/* Background mask — the image inside always matches the card's full
+          height; the mask and image counter-translate so the cut line
           moves while the image stays visually fixed */}
       <div
         className={`absolute inset-0 z-[1] rounded-[4px] overflow-hidden will-change-transform transition-transform duration-300 ease-out ${MASK_SHIFT}`}
       >
         <div
-          className={`noise-overlay absolute inset-x-0 bottom-0 will-change-transform transition-transform duration-300 ease-out ${MASK_COUNTER_SHIFT}`}
+          className={`noise-overlay absolute inset-0 will-change-transform transition-transform duration-300 ease-out ${MASK_COUNTER_SHIFT}`}
           style={{
-            height: tall ? 748 : 364,
             backgroundImage: `url(${basePath}${bg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
