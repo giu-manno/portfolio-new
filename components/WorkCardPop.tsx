@@ -103,6 +103,8 @@ export default function WorkCardPop({ bg, screen, screen2, alt, tall, keywords }
           <img
             src={`${basePath}${screen}`}
             alt={alt}
+            loading="lazy"
+            decoding="async"
             style={{ borderRadius: PHONE_RADIUS }}
             className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${PHONE_1}`}
           />
@@ -110,6 +112,8 @@ export default function WorkCardPop({ bg, screen, screen2, alt, tall, keywords }
           <img
             src={`${basePath}${screen2}`}
             alt=""
+            loading="lazy"
+            decoding="async"
             style={{ borderRadius: PHONE_RADIUS }}
             className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${PHONE_2}`}
           />
@@ -119,6 +123,8 @@ export default function WorkCardPop({ bg, screen, screen2, alt, tall, keywords }
         <img
           src={`${basePath}${screen}`}
           alt={alt}
+          loading="lazy"
+          decoding="async"
           className={`absolute ${SCREEN_REST_TOP} left-1/2 -translate-x-1/2 z-[2] w-[60%] max-w-none h-auto rounded-[4px] border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${SCREEN_HOVER}`}
         />
       )}

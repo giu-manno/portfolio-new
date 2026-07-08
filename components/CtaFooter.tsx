@@ -18,21 +18,17 @@ const STARS = [
   { left: "92%", top: "58%", size: 3, dur: "2.8s", delay: "-2.0s" },
 ];
 
+// Resting colors set per chip; hover falls through to the default accent fill
 const chipEmailStyle = {
   "--chip-bg": "#ffffff",
   "--chip-ink": "var(--p-ink)",
   "--chip-border": "#ffffff",
-  "--chip-hover-bg": "#eeeeee",
-  "--chip-hover-border": "#eeeeee",
 } as React.CSSProperties;
 
 const chipLinkedinStyle = {
   "--chip-bg": "transparent",
   "--chip-ink": "rgba(255,255,255,0.75)",
   "--chip-border": "rgba(255,255,255,0.2)",
-  "--chip-hover-bg": "rgba(255,255,255,0.08)",
-  "--chip-hover-border": "rgba(255,255,255,0.35)",
-  "--chip-hover-ink": "#ffffff",
 } as React.CSSProperties;
 
 export default function CtaFooter() {

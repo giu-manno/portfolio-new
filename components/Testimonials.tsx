@@ -71,20 +71,38 @@ const FLOWER_GRIDS = {
 
 // The garden row: grid + petal colors + pixel cell size (px)
 const GARDEN: { grid: readonly string[]; colors: Record<string, string>; cell: number }[] = [
-  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 4 },
-  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#e5798f" }, cell: 5 },
-  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#a5b8e8", Y: "#f2c94c" }, cell: 5 },
-  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#e0608a" }, cell: 4 },
-  { grid: FLOWER_GRIDS.lavender, colors: { ...STEM, B: "#7d9bd9", b: "#a5b8e8" }, cell: 5 },
-  { grid: FLOWER_GRIDS.sunflower, colors: { ...STEM, Y: "#f0c245", D: "#6b4a3a" }, cell: 5 },
-  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#f2a68c", c: "#e0608a" }, cell: 4 },
-  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#b195d6" }, cell: 5 },
-  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#f2b8c6", Y: "#f2c94c" }, cell: 5 },
-  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#7d9bd9" }, cell: 4 },
-  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 4 },
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 5 },
+  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#e5798f" }, cell: 6 },
+  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#a5b8e8", Y: "#f2c94c" }, cell: 6 },
+  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#e0608a" }, cell: 5 },
+  { grid: FLOWER_GRIDS.lavender, colors: { ...STEM, B: "#7d9bd9", b: "#a5b8e8" }, cell: 6 },
+  { grid: FLOWER_GRIDS.sunflower, colors: { ...STEM, Y: "#f0c245", D: "#6b4a3a" }, cell: 6 },
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#f2a68c", c: "#e0608a" }, cell: 5 },
+  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#b195d6" }, cell: 6 },
+  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#f2b8c6", Y: "#f2c94c" }, cell: 6 },
+  { grid: FLOWER_GRIDS.bud, colors: { ...STEM, B: "#7d9bd9" }, cell: 5 },
+  { grid: FLOWER_GRIDS.mini, colors: { ...STEM, p: "#d98ec4", c: "#f2c94c" }, cell: 5 },
 ];
 
-function PixelFlower({ grid, colors, cell }: (typeof GARDEN)[number]) {
+// One stamp flower per testimonial, cycled by card index
+const STAMP_FLOWERS: { grid: readonly string[]; colors: Record<string, string> }[] = [
+  { grid: FLOWER_GRIDS.tulip, colors: { ...STEM, P: "#e5798f" } },
+  { grid: FLOWER_GRIDS.daisy, colors: { ...STEM, W: "#a5b8e8", Y: "#f2c94c" } },
+  { grid: FLOWER_GRIDS.sunflower, colors: { ...STEM, Y: "#f0c245", D: "#6b4a3a" } },
+  { grid: FLOWER_GRIDS.lavender, colors: { ...STEM, B: "#7d9bd9", b: "#a5b8e8" } },
+];
+
+function PixelFlower({
+  grid,
+  colors,
+  cell,
+  className,
+}: {
+  grid: readonly string[];
+  colors: Record<string, string>;
+  cell: number;
+  className?: string;
+}) {
   const h = grid.length;
   const w = grid[0].length;
   return (
@@ -94,6 +112,7 @@ function PixelFlower({ grid, colors, cell }: (typeof GARDEN)[number]) {
       viewBox={`0 0 ${w} ${h}`}
       shapeRendering="crispEdges"
       aria-hidden="true"
+      className={className}
     >
       {grid.flatMap((row, y) =>
         [...row].map((ch, x) =>
@@ -177,14 +196,21 @@ export default function Testimonials() {
             />
 
             <p className="m-0 text-[15px] leading-[1.55] text-p-ink">{current.quote}</p>
-            <div className="flex items-center gap-[18px]">
-              {/* Mini flower postage stamp */}
+            <div className="flex items-center justify-between gap-[18px]">
+              {/* Mini flower postage stamp — one flower per card */}
               <div aria-hidden="true" className="border border-dashed border-p-ink px-1.5 py-1">
-                <PixelFlower grid={FLOWER_GRIDS.tulip} colors={{ ...STEM, P: "#e5798f" }} cell={3} />
+                <PixelFlower {...STAMP_FLOWERS[index % STAMP_FLOWERS.length]} cell={3} />
               </div>
-              <div className="flex-1 h-px bg-p-ink" />
-              <div className="italic text-[20px] text-p-ink" style={{ fontFamily: serifFont }}>
-                {current.name}
+              <div className="text-right">
+                <div className="italic text-[20px] text-p-ink" style={{ fontFamily: serifFont }}>
+                  {current.name}
+                </div>
+                <div
+                  className="text-xs text-p-muted mt-[0.15rem]"
+                  style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
+                >
+                  {current.role}
+                </div>
               </div>
             </div>
           </div>
@@ -198,10 +224,14 @@ export default function Testimonials() {
           </button>
         </div>
 
-        {/* Flower garden */}
+        {/* Flower garden — each flower stretches up a little on hover */}
         <div className="mt-14 flex justify-center items-end gap-8 max-sm:gap-5 flex-wrap" aria-hidden="true">
           {GARDEN.map((f, i) => (
-            <PixelFlower key={i} {...f} />
+            <PixelFlower
+              key={i}
+              {...f}
+              className="origin-bottom transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:scale-y-[1.25]"
+            />
           ))}
         </div>
       </div>

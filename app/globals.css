@@ -193,6 +193,18 @@
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.2; }
 }
+
+/* Bee cursor trail — tiny amber pixels that blink out in discrete steps */
+.bee-trail {
+  width: 4px;
+  height: 4px;
+  background: #f2c94c;
+  animation: beeTrailFade 0.65s steps(4, end) forwards;
+}
+@keyframes beeTrailFade {
+  from { opacity: 0.9; }
+  to   { opacity: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
   .pixel-sky-anim { animation: none !important; }
 }
@@ -222,9 +234,13 @@
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 .pixel-chip:hover {
-  background: var(--chip-hover-bg, var(--p-soft));
+  background: var(--chip-hover-bg, var(--p-accent));
   border-color: var(--chip-hover-border, var(--p-accent));
-  color: var(--chip-hover-ink, var(--chip-ink, var(--p-ink)));
+  color: var(--chip-hover-ink, #ffffff);
+}
+/* Language switch: active side takes the live time-of-day accent */
+.lang-switch[data-checked] {
+  background: var(--p-accent) !important;
 }
 .pixel-chip-lg {
   gap: 10px;
@@ -273,3 +289,19 @@
   transition: padding-left 0.3s cubic-bezier(0.23,1,0.32,1);
 }
 .exp-item:hover { padding-left: 0.5rem; }
+
+/* ─── Pixel cursors — pixelarticons.com free cursor pack (MIT, Halfmage) ───
+   Inlined as data URIs so they survive the GitHub Pages basePath. Falls back
+   to native cursors where SVG cursors are unsupported. */
+html,
+body {
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE0IDE3SDE2VjIzSDEwVjE4SDhWMTZIMTBWMTRIMTZWMTJIMThWMTZIMTRWMTdaTTYgMkg0VjIwSDZWMjJIMlYwSDZWMlpNOCAyMEg2VjE4SDhWMjBaTTE2IDEySDE0VjEwSDE2VjEyWk0xNCAxMEgxMlY4SDE0VjEwWk0xMiA4SDEwVjZIMTJWOFpNMTAgNkg4VjRIMTBWNlpNOCA0SDZWMkg4VjRaIiBmaWxsPSJibGFjayIvPgo8cmVjdCB4PSI0IiB5PSIyIiB3aWR0aD0iMiIgaGVpZ2h0PSIxOCIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMTQiIGZpbGw9IndoaXRlIi8+CjxyZWN0IHg9IjgiIHk9IjYiIHdpZHRoPSIyIiBoZWlnaHQ9IjEwIiBmaWxsPSJ3aGl0ZSIvPgo8cmVjdCB4PSIxMCIgeT0iOCIgd2lkdGg9IjIiIGhlaWdodD0iOCIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iMTIiIHk9IjEwIiB3aWR0aD0iMiIgaGVpZ2h0PSI0IiBmaWxsPSJ3aGl0ZSIvPgo8cmVjdCB4PSIxNCIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IndoaXRlIi8+CjxyZWN0IHg9IjEwIiB5PSIxNCIgd2lkdGg9IjIiIGhlaWdodD0iNCIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iMTIiIHk9IjE4IiB3aWR0aD0iMiIgaGVpZ2h0PSIzIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K") 4 2, auto;
+}
+a,
+button,
+[role="button"],
+select,
+summary,
+.cursor-pointer {
+  cursor: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGNsaXBQYXRoIGlkPSJhIj48cGF0aCBkPSJtNCA0aDI0djI0aC0yNHoiLz48L2NsaXBQYXRoPjxwYXRoIGQ9Im0xNiA4aDJ2NGg2djJoNHYyaDJ2MTBoLTJ2MmgtMnYyaC0xMnYtMmgtMnYtMmgtMnYtMmgtMnYtMmgtMnYtMmgydi0yaDR2LTEwaDJ2LTJoMnoiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4yNSIvPjxnIGNsaXAtcGF0aD0idXJsKCNhKSI+PHBhdGggZD0ibTYgMThoNHYyaC00eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Im04IDIwaDE4djJoLTE4eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Im0xMCAyMmgxNnYyaC0xNnoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTIgMjRoMTJ2MmgtMTJ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTEyIDZoMnYxNWgtMnoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTQgMThoMTJ2MmgtMTJ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTE2IDEyaDEwdjZoLTEweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Im0yMCAxMmgydjRoLTJ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTI0IDE2aDJ2MmgtMnoiIGZpbGw9IiNmZmYiLz48ZyBmaWxsPSIjMDAwIj48cGF0aCBkPSJtMjIgMTJoMnY2aC0yeiIvPjxwYXRoIGQ9Im0xOCAxMGgydjhoLTJ6Ii8+PHBhdGggZD0ibTE0IDZoMnYxMmgtMnoiLz48cGF0aCBkPSJtMTAgNmgydjEyaC0yeiIvPjxwYXRoIGQ9Im0yNCAxMmgydjJoLTJ6Ii8+PHBhdGggZD0ibTIwIDEwaDJ2MmgtMnoiLz48cGF0aCBkPSJtMTYgMTBoMnYyaC0yeiIvPjxwYXRoIGQ9Im0xMiA0aDJ2MmgtMnoiLz48cGF0aCBkPSJtNiAxNmg0djJoLTR6Ii8+PHBhdGggZD0ibTQgMThoMnYyaC0yeiIvPjxwYXRoIGQ9Im02IDIwaDJ2MmgtMnoiLz48cGF0aCBkPSJtOCAyMmgydjJoLTJ6Ii8+PHBhdGggZD0ibTEwIDI0aDJ2MmgtMnoiLz48cGF0aCBkPSJtMTIgMjZoMTJ2MmgtMTJ6Ii8+PHBhdGggZD0ibTI0IDI0aDJ2MmgtMnoiLz48cGF0aCBkPSJtMjYgMTRoMnYxMGgtMnoiLz48cGF0aCBkPSJtMTAgMThoMnYyaC0yeiIvPjxwYXRoIGQ9Im0xNiAyMGgydjRoLTJ6Ii8+PHBhdGggZD0ibTIwIDIwaDJ2NGgtMnoiLz48L2c+PC9nPjwvc3ZnPg==") 17 8, pointer;
+}

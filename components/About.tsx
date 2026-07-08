@@ -39,7 +39,7 @@ export default function About() {
               {ab.chips.map((chip) => (
                 <span
                   key={chip}
-                  className="text-sm font-[400] text-p-ink bg-p-soft rounded-md px-3 py-[0.35rem] transition-all duration-200 hover:bg-p-border hover:-translate-y-0.5 cursor-default"
+                  className="text-sm font-[400] text-p-ink bg-p-soft rounded-md px-3 py-[0.35rem] transition-[background-color,color,transform] duration-200 ease-out hover:bg-[var(--p-accent)] hover:text-white hover:-rotate-2 cursor-default"
                   style={{ fontFamily: "var(--font-geist-pixel), 'Doto', monospace" }}
                 >
                   {chip}

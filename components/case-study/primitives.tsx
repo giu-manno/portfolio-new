@@ -175,23 +175,6 @@ export function OutcomeCell({ num, label }: { num: string; label: string }) {
   );
 }
 
-export function ImgPlaceholder({ caption }: { caption: string }) {
-  return (
-    <div className="my-10">
-      <div
-        className="w-full rounded-[4px] overflow-hidden"
-        style={{ background: "#1a1a2e", aspectRatio: "16/7" }}
-      />
-      <p
-        className="text-xs text-[var(--p-muted)] text-center mt-3 tracking-[0.04em]"
-        style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
-      >
-        {caption}
-      </p>
-    </div>
-  );
-}
-
 export function RevealSection({
   id,
   children,

@@ -4,7 +4,7 @@ import CaseStudyLayout from "@/components/CaseStudyLayout";
 import { CaseStudyImage } from "@/components/case-study/CaseStudyImage";
 import s4eCloseup       from "@/public/s4e-casestudy-images/s4e-closeup.webp";
 import s4eSitemap       from "@/public/s4e-casestudy-images/s4e-sitemap.webp";
-import s4eWireframes    from "@/public/s4e-casestudy-images/s4e-wireframes.jpg";
+import s4eWireframes    from "@/public/s4e-casestudy-images/s4e-wireframes.webp";
 import s4eMediumfi      from "@/public/s4e-casestudy-images/s4e-mediumfi.webp";
 import s4eScreens       from "@/public/s4e-casestudy-images/s4e-screens.webp";
 import {

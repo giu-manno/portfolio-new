@@ -9,7 +9,6 @@ import {
   InsightCard,
   ProcessStep,
   OutcomeCell,
-  ImgPlaceholder,
   RevealSection,
 } from "@/components/case-study/primitives";
 import { CaseStudyImage } from "@/components/case-study/CaseStudyImage";

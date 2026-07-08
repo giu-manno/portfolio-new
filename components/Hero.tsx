@@ -1,9 +1,109 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations as t } from "@/lib/translations";
 import { getSprites, periodForHour, PALETTES, type Period } from "@/lib/pixelSprites";
+
+/* ── Bee cursor (clock hover easter egg) ────────────────────────────── */
+
+const BEE_GRID = [
+  "....WW......",
+  "...WWWW.....",
+  "....WW......",
+  "..KYYKYYK...",
+  ".KYYKYYKYKK.",
+  "KKYYKYYKYKEK",
+  ".KYYKYYKYKK.",
+  "..KYYKYYK...",
+  "...K...K....",
+];
+const BEE_COLORS: Record<string, string> = {
+  K: "#2b2b28",
+  Y: "#f2c94c",
+  W: "#dfe9f7",
+  E: "#ffffff",
+};
+const BEE_CELL = 2;
+
+function PixelBee({ flip }: { flip: boolean }) {
+  const h = BEE_GRID.length;
+  const w = BEE_GRID[0].length;
+  return (
+    <svg
+      width={w * BEE_CELL}
+      height={h * BEE_CELL}
+      viewBox={`0 0 ${w} ${h}`}
+      shapeRendering="crispEdges"
+      aria-hidden="true"
+      style={{ transform: flip ? "scaleX(-1)" : undefined }}
+    >
+      {BEE_GRID.flatMap((row, y) =>
+        [...row].map((ch, x) =>
+          BEE_COLORS[ch] ? <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={BEE_COLORS[ch]} /> : null
+        )
+      )}
+    </svg>
+  );
+}
+
+function BeeCursor({ active }: { active: boolean }) {
+  const [mounted, setMounted] = useState(false);
+  const [flip, setFlip] = useState(false);
+  const [trail, setTrail] = useState<{ id: number; x: number; y: number }[]>([]);
+  const lastDot = useRef({ x: -100, y: -100 });
+  const dotId = useRef(0);
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  const springConfig = { stiffness: 500, damping: 32, mass: 0.4 };
+  const x = useSpring(cursorX, springConfig);
+  const y = useSpring(cursorY, springConfig);
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!active) return;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const move = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+      if (e.movementX !== 0) setFlip(e.movementX < 0);
+      // Drop a trail pixel every ~12px of travel
+      const d = Math.hypot(e.clientX - lastDot.current.x, e.clientY - lastDot.current.y);
+      if (d > 12) {
+        lastDot.current = { x: e.clientX, y: e.clientY };
+        const id = ++dotId.current;
+        setTrail((ts) => [...ts.slice(-14), { id, x: e.clientX, y: e.clientY }]);
+        timers.push(setTimeout(() => setTrail((ts) => ts.filter((t2) => t2.id !== id)), 650));
+      }
+    };
+    window.addEventListener("mousemove", move);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      timers.forEach(clearTimeout);
+      setTrail([]);
+    };
+  }, [active, cursorX, cursorY]);
+
+  if (!mounted || !active) return null;
+
+  return createPortal(
+    <>
+      {trail.map((t2) => (
+        <div key={t2.id} className="bee-trail fixed z-[199] pointer-events-none" style={{ left: t2.x, top: t2.y }} />
+      ))}
+      <motion.div
+        className="fixed z-[200] pointer-events-none"
+        style={{ x, y, translateX: "-50%", translateY: "-50%" }}
+      >
+        <PixelBee flip={flip} />
+      </motion.div>
+    </>,
+    document.body
+  );
+}
 
 // Twinkling star dots, same style as the CTA footer's star field
 const SPARKLES = [
@@ -52,6 +152,12 @@ interface HeroProps {
 export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroProps) {
   const { lang } = useLanguage();
   const [now, setNow] = useState<Date | null>(null);
+  const [beeActive, setBeeActive] = useState(false);
+
+  const activateBee = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setBeeActive(true);
+  };
 
   useEffect(() => {
     setNow(new Date());
@@ -94,7 +200,10 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
         style={{
           height: 380,
           background: `linear-gradient(to bottom, ${palette.skyBands[0]} 0%, ${palette.skyBands[0]} 30%, ${palette.skyBands[1]} 30%, ${palette.skyBands[1]} 55%, ${palette.skyBands[2]} 55%, ${palette.skyBands[2]} 78%, ${palette.skyBands[3]} 78%, ${palette.skyBands[3]} 100%)`,
+          cursor: beeActive ? "none" : undefined,
         }}
+        onMouseEnter={activateBee}
+        onMouseLeave={() => setBeeActive(false)}
       >
         {/* Dithered sky bands — canvas sprite over the CSS-gradient fallback */}
         {sprites && (
@@ -228,6 +337,9 @@ export default function Hero({ timeOfDay = "auto", showSeconds = false }: HeroPr
           )}
         </div>
       </div>
+
+      {/* Bee cursor while hovering the clock */}
+      <BeeCursor active={beeActive} />
 
       {/* ─── Name + bio ───
           Mobile: name / chips / bio stacked.
