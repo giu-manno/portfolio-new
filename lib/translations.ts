@@ -11,8 +11,8 @@ export const translations = {
   hero: {
     greeting: { en: "Hey! I'm",  pt: "Oi! Meu nome é" },
     desc: {
-      en: "Product Designer based in Florianópolis, Brazil, with 4+ years of experience in SaaS, Enterprise/B2B and Design Systems.",
-      pt: "Product Designer em Florianópolis, Brasil, 4+ anos de experiência em SaaS, B2B e Design Systems.",
+      en: "Product Designer based in Florianópolis, Brazil, with 5+ years of experience in SaaS, Enterprise/B2B and Design Systems.",
+      pt: "Product Designer em Florianópolis, Brasil, 5+ anos de experiência em SaaS, B2B e Design Systems.",
     },
     contact:  { en: "Contact me",   pt: "Fale comigo" },
     seeWork:  { en: "See my work",   pt: "Ver projetos" },
@@ -29,8 +29,8 @@ export const translations = {
   experience: {
     label: { en: "Experience", pt: "Experiências Profissionais" },
     blurb: {
-      en: "4+ years building products across SaaS, research, and consulting.",
-      pt: "4+ anos construindo produtos em SaaS, pesquisa e consultoria.",
+      en: "5+ years building products across SaaS, research, and consulting.",
+      pt: "5+ anos construindo produtos em SaaS, pesquisa e consultoria.",
     },
     downloadCV: { en: "Download CV", pt: "Baixar CV" },
     items: [
@@ -87,12 +87,12 @@ export const translations = {
   about: {
     label: { en: "About", pt: "Sobre" },
     p1: {
-      en: "I'm Giulia — a designer from Florianópolis who works at the crossroads of product thinking, systems design, and real care for usability. I've spent 4+ years building products end-to-end: from research to system, from sketch to shipped.",
-      pt: "Sou Giulia — uma designer de Florianópolis que trabalha na interseção entre pensamento de produto, design de sistemas e cuidado real com usabilidade. Passei mais de 4 anos construindo produtos do início ao fim: da pesquisa ao sistema, do esboço à entrega.",
+      en: "I'm Giulia — a designer from Florianópolis who works at the crossroads of product thinking, systems design, and real care for usability. I've spent 5+ years building products end-to-end: from research to system, from sketch to shipped.",
+      pt: "Sou Giulia — uma designer de Florianópolis que trabalha na interseção entre pensamento de produto, design de sistemas e cuidado real com usabilidade. Passei mais de 5 anos construindo produtos do início ao fim: da pesquisa ao sistema, do esboço à entrega.",
     },
     p2: {
-      en: "I have a B.Sc. in Design from UFSC and a PIBIC research background in accessibility. Outside of product work, I mentor young women in tech through Technovation Girls.",
-      pt: "Tenho Bacharelado em Design pela UFSC e formação em pesquisa PIBIC em acessibilidade. Fora do trabalho, mentoro jovens mulheres em tecnologia pelo Technovation Girls.",
+      en: "I have a B.Sc. in Design from UFSC and a PIBIC research background in accessibility. Outside of work, I'm also pursuing a postgraduate degree in User Experience design through PUC-RS.",
+      pt: "Tenho Bacharelado em Design pela UFSC e formação em pesquisa PIBIC em acessibilidade. Fora do trabalho, também estou cursando pós-graduação em Design de Experiência do Usuário pela PUC-RS.",
     },
     chips: [
       "Product Design", "Design Systems", "Product Discovery",
@@ -108,9 +108,9 @@ export const translations = {
         year: "2019–2023",
       },
       {
-        name: { en: "Research Grant — PIBIC/CAPES",   pt: "Bolsa de Pesquisa — PIBIC/CAPES" },
-        sub:  { en: "Accessibility in Graphic Design", pt: "Acessibilidade no Design Gráfico" },
-        year: "2021–2022",
+        name: { en: "Specialization in User Experience Design and Beyond", pt: "Especialização em Design de Experiência do Usuário e Além" },
+        sub:  { en: "PUC - Rio Grande do Sul", pt: "PUC - Rio Grande do Sul" },
+        year: { en: "Ongoing", pt: "Em andamento" } as any,
       },
     ],
     also: [
@@ -118,6 +118,11 @@ export const translations = {
         name: { en: "Mentor — Technovation Girls",        pt: "Mentora — Technovation Girls" },
         sub:  { en: "Global tech competition for girls",  pt: "Competição global de tecnologia para meninas" },
         year: "2024",
+      },
+      {
+        name: { en: "Research Grant — PIBIC/CAPES",   pt: "Bolsa de Pesquisa — PIBIC/CAPES" },
+        sub:  { en: "Accessibility in Graphic Design", pt: "Acessibilidade no Design Gráfico" },
+        year: "2021–2022",
       },
       {
         name: { en: "Volunteer Mentor — PAQ",                         pt: "Mentora Voluntária — PAQ" },
