@@ -71,7 +71,7 @@ export default function About() {
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     <span>{item.sub[lang]}</span>
-                    <span>{typeof item.year === "object" && item.year !== null ? (item.year as any)[lang] : item.year}</span>
+                    <span>{typeof item.year === "object" ? item.year[lang] : item.year}</span>
                   </div>
                 </div>
               ))}
@@ -98,7 +98,7 @@ export default function About() {
                     style={{ fontFamily: "var(--font-almarai), system-ui, sans-serif" }}
                   >
                     <span>{item.sub[lang]}</span>
-                    <span>{typeof item.year === "object" && item.year !== null ? (item.year as any)[lang] : item.year}</span>
+                    <span>{typeof item.year === "object" ? item.year[lang] : item.year}</span>
                   </div>
                 </div>
               ))}
