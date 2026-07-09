@@ -1,3 +1,11 @@
+import type { Lang } from "@/context/LanguageContext";
+
+type TimelineItem = {
+  name: Record<Lang, string>;
+  sub: Record<Lang, string>;
+  year: string | Record<Lang, string>;
+};
+
 export const translations = {
   nav: {
     work:         { en: "Work",       pt: "Projetos" },
@@ -110,9 +118,9 @@ export const translations = {
       {
         name: { en: "Specialization in User Experience Design and Beyond", pt: "Especialização em Design de Experiência do Usuário e Além" },
         sub:  { en: "PUC - Rio Grande do Sul", pt: "PUC - Rio Grande do Sul" },
-        year: { en: "Ongoing", pt: "Em andamento" } as any,
+        year: { en: "Ongoing", pt: "Em andamento" },
       },
-    ],
+    ] satisfies TimelineItem[],
     also: [
       {
         name: { en: "Mentor — Technovation Girls",        pt: "Mentora — Technovation Girls" },
@@ -129,7 +137,7 @@ export const translations = {
         sub:  { en: "Design mentorship · social inclusion program",   pt: "Mentoria de design · programa de inclusão social" },
         year: "2024",
       },
-    ],
+    ] satisfies TimelineItem[],
   },
   testimonials: {
     label:    { en: "testimonials", pt: "depoimentos" },
