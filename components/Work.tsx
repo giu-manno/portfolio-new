@@ -19,17 +19,18 @@ export default function Work() {
           {t.work.label[lang]}
         </div>
 
-        {/* Stacked full-width cards, one per project */}
-        <div className="flex flex-col gap-16">
+        {/* Stacked full-width cards; side by side once there's room for two */}
+        <div className="grid grid-cols-1 gap-16 min-[1200px]:grid-cols-2">
           {projects.map((p, i) => (
             <WorkCard
-              key={p.href}
+              key={p.href ?? p.title.en}
               gradient={p.gradient}
               title={p.title[lang]}
               subtitle={p.subtitle[lang]}
               tagline={p.tagline[lang]}
               year={p.year}
               href={p.href}
+              ctaLabel={p.ctaLabel}
               password={p.password}
               image={p.image}
               bg={p.bg}
