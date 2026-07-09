@@ -5,7 +5,10 @@ export interface Project {
   subtitle:  { en: string; pt: string };
   tagline:   { en: string; pt: string };
   year:      string;
-  href:      string;
+  /** Internal route (e.g. "/work/ades") or absolute external URL (e.g. "https://…"). Omit for a non-linked placeholder card. */
+  href?:     string;
+  /** Cursor-chip label on hover. Defaults to "view case study"; use "view site" for external live sites. */
+  ctaLabel?: string;
   gradient:  string;
   password?: string;
   image?:    string;
@@ -46,5 +49,32 @@ export const projects: Project[] = [
     screen:    "/homepageades/ades-pop-screen-1.svg",
     screen2:   "/homepageades/ades-pop-screen-2.svg",
     keywords:  ["Mobile App", "Product Design", "User Research", "Digital Signatures", "Prototyping"],
+  },
+  {
+    title:    { en: "BAITA/CAFe 2.0",               pt: "BAITA/CAFe 2.0" },
+    subtitle: { en: "Academic Federation · Product Designer", pt: "Federação Acadêmica · Product Designer" },
+    tagline:  { en: "Remaking CAFe: the largest academic federation in LATAM.", pt: "Recriando o CAFe: a maior federação acadêmica da América Latina." },
+    year:     "2025–2026",
+    href:     "https://gt-baita.ifrs.edu.br/",
+    ctaLabel: "view site",
+    gradient:  "linear-gradient(135deg, #e5798f 0%, #b8536a 100%)",
+    bg:        "/homepagenewprojects/pixel-gradient-pink.svg",
+    screen:    "/homepagenewprojects/baita.svg",
+    keywords:  ["WIP", "WIP", "WIP", "WIP", "WIP", "WIP"],
+  },
+  {
+    title:    { en: "Spheric AI",                   pt: "Spheric AI" },
+    subtitle: { en: "AI ATS · Product Designer",    pt: "ATS com IA · Product Designer" },
+    tagline:  { en: "Refining the recruiter experience on an AI-powered ATS.", pt: "Refinando a experiência do recrutador em um ATS com IA." },
+    year:     "2026",
+    // Under NDA — no case study page. Hover pops the screen with an "under NDA"
+    // marquee; the chip reads "contact me" and clicking opens mail, same as the
+    // contact buttons.
+    href:     "mailto:mannogiu@gmail.com",
+    ctaLabel: "contact me to know more",
+    gradient:  "linear-gradient(135deg, #b195d6 0%, #7a5ba8 100%)",
+    bg:        "/homepagenewprojects/pixel-gradient-purple.svg",
+    screen:    "/homepagenewprojects/spheric.svg",
+    keywords:  ["under NDA", "under NDA", "under NDA", "under NDA", "under NDA", "under NDA"],
   },
 ];

@@ -18,6 +18,7 @@ interface WorkCardProps {
   year: string;
   delay?: number;
   href?: string;
+  ctaLabel?: string;
   password?: string;
   image?: string;
   bg?: string;
@@ -26,7 +27,9 @@ interface WorkCardProps {
   keywords?: string[];
 }
 
-function CursorChip({ visible }: { visible: boolean }) {
+type ChipIcon = "internal" | "external";
+
+function CursorChip({ visible, label, icon }: { visible: boolean; label: string; icon: ChipIcon }) {
   const [mounted, setMounted] = useState(false);
   const cursorX = useMotionValue(-200);
   const cursorY = useMotionValue(-200);
@@ -71,9 +74,10 @@ function CursorChip({ visible }: { visible: boolean }) {
             style={{ background: "rgba(0, 0, 0, 0.75)", mixBlendMode: "multiply" }}
           />
           <span className="relative flex items-center gap-2">
-            view case study
+            {label}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-              <path d="M5 12h14M12 5l7 7-7 7" />
+              {/* External / contact links get a diagonal up-right arrow; internal case studies keep the rightward arrow */}
+              <path d={icon === "external" ? "M7 17L17 7M8 7h9v9" : "M5 12h14M12 5l7 7-7 7"} />
             </svg>
           </span>
         </motion.div>
@@ -92,6 +96,7 @@ export default function WorkCard({
   year,
   delay = 0,
   href,
+  ctaLabel,
   password,
   image,
   bg,
@@ -103,7 +108,17 @@ export default function WorkCard({
   const router = useRouter();
   const [scrollActive, setScrollActive] = useState(false);
   const [chipVisible, setChipVisible] = useState(false);
-  const isHoverable = href !== undefined;
+  const isHttp = Boolean(href && /^https?:\/\//.test(href));
+  const isMailto = Boolean(href && href.startsWith("mailto:"));
+  // http and mailto both render as a plain anchor rather than a Next route.
+  const isPlainAnchor = isHttp || isMailto;
+  // Show the hover chip for anything linked, or for an explicit label (e.g. an
+  // NDA card that shows a chip but doesn't navigate to a case study).
+  const isHoverable = href !== undefined || ctaLabel !== undefined;
+  const chipLabel = ctaLabel ?? "view case study";
+  // http (leaves the site) and mailto (contact) both get the diagonal up-right
+  // arrow; internal case studies keep the rightward arrow.
+  const chipIcon: ChipIcon = isHttp || isMailto ? "external" : "internal";
 
   // On touch/no-hover devices, activate overlay when card scrolls into view
   useEffect(() => {
@@ -201,7 +216,7 @@ export default function WorkCard({
       </div>
 
       {/* Cursor chip */}
-      {isHoverable && <CursorChip visible={chipVisible} />}
+      {isHoverable && <CursorChip visible={chipVisible} label={chipLabel} icon={chipIcon} />}
     </>
   );
 
@@ -230,6 +245,24 @@ export default function WorkCard({
     );
   }
 
+  // Plain-anchor card: external live site (http, opens a new tab) or a mailto
+  // contact link (same action as the contact buttons).
+  if (href && isPlainAnchor) {
+    return (
+      <div ref={ref as React.RefObject<HTMLDivElement>} className={wrapperClassName}>
+        <a
+          href={href}
+          {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className={className}
+          {...hoverProps}
+        >
+          {inner}
+        </a>
+        {taglineEl}
+      </div>
+    );
+  }
+
   // Regular linked card
   if (href) {
     return (
@@ -242,9 +275,11 @@ export default function WorkCard({
     );
   }
 
+  // Non-linked card. Still shows the hover chip when it has a label (e.g. NDA),
+  // but clicking does nothing since it's a plain div.
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} className={wrapperClassName}>
-      <div className={className} style={cardStyle}>
+      <div className={className} {...hoverProps}>
         {inner}
       </div>
       {taglineEl}
