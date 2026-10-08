@@ -17,6 +17,10 @@ export interface Project {
   screen?:   string;
   /** Second screen cutout — renders the staggered dual-phone pop layout. */
   screen2?:  string;
+  /** Below 900px, enlarge the screen and crop it to its top-left corner so the
+   *  UI stays legible. For dense desktop screens; leave off for screens whose
+   *  content is centered (e.g. a placeholder). */
+  cropOnMobile?: boolean;
   /** Keywords for the hover marquee behind the lifted screen (pop cards only). */
   keywords?: string[];
 }
@@ -34,6 +38,7 @@ export const projects: Project[] = [
     image:     "/s4e-casestudy-images/s4e-homepage-cover.webp",
     bg:        "/homepages4e/s4e-pop-bg.svg",
     screen:    "/homepages4e/s4e-pop-screen.svg",
+    cropOnMobile: true,
     keywords:  ["SaaS", "Product Design", "Design Systems", "B2B", "Energy Trading", "Data-heavy UI"],
     // password: "key",  // TODO: re-enable when password gate is ready
   },
@@ -60,6 +65,7 @@ export const projects: Project[] = [
     gradient:  "linear-gradient(135deg, #e5798f 0%, #b8536a 100%)",
     bg:        "/homepagenewprojects/pixel-gradient-pink.svg",
     screen:    "/homepagenewprojects/baita.svg",
+    cropOnMobile: true,
     keywords:  ["WIP", "WIP", "WIP", "WIP", "WIP", "WIP"],
   },
   {

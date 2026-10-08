@@ -24,6 +24,7 @@ interface WorkCardProps {
   bg?: string;
   screen?: string;
   screen2?: string;
+  cropOnMobile?: boolean;
   keywords?: string[];
 }
 
@@ -102,6 +103,7 @@ export default function WorkCard({
   bg,
   screen,
   screen2,
+  cropOnMobile,
   keywords,
 }: WorkCardProps) {
   const { ref, visible } = useReveal();
@@ -165,7 +167,7 @@ export default function WorkCard({
   const inner = (
     <>
       {isPop ? (
-        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} alt={title} keywords={keywords} />
+        <WorkCardPop bg={bg!} screen={screen!} screen2={screen2} cropOnMobile={cropOnMobile} alt={title} keywords={keywords} />
       ) : (
         <>
           {/* Card image / placeholder */}
