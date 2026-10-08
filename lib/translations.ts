@@ -144,6 +144,7 @@ export const translations = {
     headline: { en: "nice words are like pretty flowers", pt: "palavras gentis são como flores bonitas" },
     prev:     { en: "Previous testimonial", pt: "Depoimento anterior" },
     next:     { en: "Next testimonial",     pt: "Próximo depoimento" },
+    position: { en: "Testimonial {i} of {n}", pt: "Depoimento {i} de {n}" },
   },
   cta: {
     headline: { en: "let's work together!", pt: "vamos trabalhar juntos!" },

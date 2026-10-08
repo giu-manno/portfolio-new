@@ -23,8 +23,20 @@ const MARQUEE_BOTTOM = "bottom-[calc(57%+6px)]";
 
 // Screen resting position and hover pop. Scaling from `origin-top` grows the
 // screen downward/outward so the 48px rise never crops at the card top.
+// The screens deliberately skip `will-change-transform`: it makes Chrome
+// rasterize them once at rest size and stretch that bitmap on scale-up, which
+// blurs the SVG. Without it they re-rasterize crisp at the hovered size.
 const SCREEN_REST_TOP = "top-[18%]";
 const SCREEN_HOVER = "group-hover:-translate-y-12 group-hover:scale-[1.25]";
+const SCREEN_LAYOUT = "left-1/2 -translate-x-1/2 w-[60%] origin-top";
+// `cropOnMobile` layout: below 900px a centered 60% screen shrinks dense UI to
+// unreadable, so instead the screen is pinned near the left edge, enlarged, and
+// left to bleed off the card's right/bottom (the card clips it) — a zoomed-in
+// top-left crop. Scaling from the top-left keeps the hover pop inside the card.
+const SCREEN_LAYOUT_CROPPED =
+  `${SCREEN_LAYOUT} ` +
+  "max-[899px]:left-[6%] max-[899px]:translate-x-0 max-[899px]:origin-top-left " +
+  "max-sm:w-[175%] sm:max-[899px]:w-[120%]";
 
 // Dual-screen (phone) layout: two staggered portrait cutouts. The corner
 // radius is set per-axis in % so it tracks the phones' baked-in 32/360 radius
@@ -32,11 +44,12 @@ const SCREEN_HOVER = "group-hover:-translate-y-12 group-hover:scale-[1.25]";
 const PHONE_RADIUS = "8.9% / 4.24%";
 // On hover the phones also nudge apart horizontally (the 1.12 growth would
 // otherwise close the gap between them): x-translate shifts from the -50%
-// centering baseline.
+// centering baseline. On phone-width cards both phones grow and spread out
+// so they stay legible.
 const PHONE_1 =
-  "left-[38%] top-[10%] w-[24%] group-hover:-translate-x-[57%] group-hover:-translate-y-8 group-hover:scale-[1.12]";
+  "left-[38%] top-[10%] w-[24%] max-sm:left-[30%] max-sm:w-[38%] group-hover:-translate-x-[57%] group-hover:-translate-y-8 group-hover:scale-[1.12]";
 const PHONE_2 =
-  "left-[63%] top-[30%] w-[21%] delay-75 group-hover:-translate-x-[43%] group-hover:-translate-y-6 group-hover:scale-[1.12]";
+  "left-[63%] top-[30%] w-[21%] max-sm:left-[69%] max-sm:w-[33%] delay-75 group-hover:-translate-x-[43%] group-hover:-translate-y-6 group-hover:scale-[1.12]";
 
 interface WorkCardPopProps {
   /** Pixel gradient background, full-bleed behind the screen. */
@@ -49,9 +62,11 @@ interface WorkCardPopProps {
   alt: string;
   /** Marquee words shown behind the lifted screen on hover. */
   keywords?: string[];
+  /** Zoomed top-left crop of the (single) screen below 900px. */
+  cropOnMobile?: boolean;
 }
 
-export default function WorkCardPop({ bg, screen, screen2, alt, keywords }: WorkCardPopProps) {
+export default function WorkCardPop({ bg, screen, screen2, alt, keywords, cropOnMobile }: WorkCardPopProps) {
   return (
     <>
       {/* Background mask — the image inside always matches the card's full
@@ -103,7 +118,7 @@ export default function WorkCardPop({ bg, screen, screen2, alt, keywords }: Work
             loading="lazy"
             decoding="async"
             style={{ borderRadius: PHONE_RADIUS }}
-            className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${PHONE_1}`}
+            className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top transition-transform duration-300 ease-out ${PHONE_1}`}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -112,7 +127,7 @@ export default function WorkCardPop({ bg, screen, screen2, alt, keywords }: Work
             loading="lazy"
             decoding="async"
             style={{ borderRadius: PHONE_RADIUS }}
-            className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${PHONE_2}`}
+            className={`absolute -translate-x-1/2 z-[2] max-w-none h-auto border border-[#ecece8] origin-top transition-transform duration-300 ease-out ${PHONE_2}`}
           />
         </>
       ) : (
@@ -122,7 +137,7 @@ export default function WorkCardPop({ bg, screen, screen2, alt, keywords }: Work
           alt={alt}
           loading="lazy"
           decoding="async"
-          className={`absolute ${SCREEN_REST_TOP} left-1/2 -translate-x-1/2 z-[2] w-[60%] max-w-none h-auto rounded-[4px] border border-[#ecece8] origin-top will-change-transform transition-transform duration-300 ease-out ${SCREEN_HOVER}`}
+          className={`absolute ${SCREEN_REST_TOP} ${cropOnMobile ? SCREEN_LAYOUT_CROPPED : SCREEN_LAYOUT} z-[2] max-w-none h-auto rounded-[4px] border border-[#ecece8] transition-transform duration-300 ease-out ${SCREEN_HOVER}`}
         />
       )}
     </>

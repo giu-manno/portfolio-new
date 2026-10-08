@@ -36,6 +36,7 @@ export default function Work() {
               bg={p.bg}
               screen={p.screen}
               screen2={p.screen2}
+              cropOnMobile={p.cropOnMobile}
               keywords={p.keywords}
               delay={(i + 1) * 0.1}
             />
